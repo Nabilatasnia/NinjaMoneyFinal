@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NinjaMoney">
-        <activity android:name=".Status"></activity>
+        <activity android:name=".Donate"></activity>
+        <activity android:name=".Report" />
+        <activity android:name=".Budget" />
+        <activity android:name=".Status" />
         <activity android:name=".Expense" />
         <activity android:name=".Income" />
         <activity android:name=".MainActivity">

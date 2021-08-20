@@ -14,9 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button budget;
     private Button status;
     private Button report;
-    private Button chart;
     private Button donate;
-    private Button settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,9 +29,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         budget = findViewById(R.id.budget);
         status = findViewById(R.id.status);
         report = findViewById(R.id.report);
-
         donate = findViewById(R.id.donate);
-
 
         income.setOnClickListener(this);
         expense.setOnClickListener(this);
@@ -41,7 +37,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         status.setOnClickListener(this);
         report.setOnClickListener(this);
         donate.setOnClickListener(this);
-
     }
 
 
@@ -60,30 +55,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentExp = new Intent(this, Expense.class);
                 startActivity(intentExp);
                 break;
-            /*case R.id.budget:
+            case R.id.budget:
                 Intent intentBud = new Intent(this, Budget.class);
                 startActivity(intentBud);
-                break;*/
+                break;
             case R.id.status:
                 Intent intentStat = new Intent(this, Status.class);
                 startActivity(intentStat);
                 break;
-            /*case R.id.report:
+            case R.id.report:
                 Intent intentRep = new Intent(this, Report.class);
                 startActivity(intentRep);
-                break;
-            case R.id.chart:
-                Intent intentChart = new Intent(this, Chart.class);
-                startActivity(intentChart);
                 break;
             case R.id.donate:
                 Intent intentDon = new Intent(this, Donate.class);
                 startActivity(intentDon);
                 break;
-            case R.id.setting:
-                Intent intentSet = new Intent(this, Setting.class);
-                startActivity(intentSet);
-                break;*/
 
         }
     }
