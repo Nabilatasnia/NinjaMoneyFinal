@@ -4,130 +4,92 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#202F81"
-    
+    android:background="#F8F6F6"
     tools:context=".MainActivity">
 
 
     <LinearLayout
         android:layout_width="200dp"
-        android:layout_height="fill_parent"
-        android:layout_alignParentStart="true"
-
-        android:orientation="vertical">
+        android:layout_height="500dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical"
+        android:paddingLeft="50dp">
 
         <Button
             android:id="@+id/income"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:drawableTop="@drawable/income"
             android:drawableTint="@color/white"
 
-
-            android:paddingTop="30dp"
             android:text="Income"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="18dp"
+
             app:backgroundTint="#202F81" />
 
         <Button
             android:id="@+id/budget"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:drawableTop="@drawable/budget"
             android:drawableTint="@color/white"
-
-            android:paddingTop="30dp"
             android:text="Budget"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="18dp"
             app:backgroundTint="#202F81" />
 
         <Button
             android:id="@+id/report"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:drawableTop="@drawable/report"
             android:drawableTint="@color/white"
-
-            android:paddingTop="30dp"
             android:text="Report"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="18dp"
             app:backgroundTint="#202F81" />
 
-        <Button
-            android:id="@+id/donate"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:drawableTop="@drawable/donate"
-            android:drawableTint="@color/white"
-
-            android:paddingTop="30dp"
-            android:text="Budget"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:backgroundTint="#202F81" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="200dp"
-        android:layout_height="fill_parent"
+        android:layout_height="500dp"
         android:layout_alignParentRight="true"
-
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="-2dp"
+        android:layout_marginBottom="0dp"
+        android:orientation="vertical"
+        android:paddingLeft="30dp">
 
         <Button
             android:id="@+id/expense"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:drawableTop="@drawable/expense"
             android:drawableTint="@color/white"
-
-            android:paddingTop="30dp"
             android:text="Expense"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="18dp"
             app:backgroundTint="#202F81" />
 
         <Button
             android:id="@+id/status"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
             android:drawableTop="@drawable/moneystatus"
             android:drawableTint="@color/white"
-
-            android:paddingTop="30dp"
             android:text="Status"
-            android:textSize="24sp"
-            android:textStyle="bold"
+            android:textSize="18dp"
             app:backgroundTint="#202F81" />
 
-        <Button
-            android:id="@+id/chart"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:drawableTop="@drawable/chart"
-            android:drawableTint="@color/white"
-
-            android:paddingTop="30dp"
-            android:text="Chart"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            app:backgroundTint="#202F81" />
 
         <Button
-            android:id="@+id/setting"
-            android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:drawableTop="@drawable/setting"
+            android:id="@+id/donate"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:drawableTop="@drawable/donate"
             android:drawableTint="@color/white"
+            android:text="Donate"
+            android:textSize="18dp"
 
-            android:paddingTop="30dp"
-            android:text="Settings"
-            android:textSize="24sp"
-            android:textStyle="bold"
             app:backgroundTint="#202F81" />
 
     </LinearLayout>

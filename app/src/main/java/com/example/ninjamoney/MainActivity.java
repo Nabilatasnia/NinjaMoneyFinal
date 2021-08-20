@@ -31,18 +31,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         budget = findViewById(R.id.budget);
         status = findViewById(R.id.status);
         report = findViewById(R.id.report);
-        chart = findViewById(R.id.chart);
+
         donate = findViewById(R.id.donate);
-        settings = findViewById(R.id.setting);
+
 
         income.setOnClickListener(this);
         expense.setOnClickListener(this);
         budget.setOnClickListener(this);
         status.setOnClickListener(this);
         report.setOnClickListener(this);
-        chart.setOnClickListener(this);
         donate.setOnClickListener(this);
-        settings.setOnClickListener(this);
+
     }
 
 
