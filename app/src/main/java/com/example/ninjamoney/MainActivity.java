@@ -2,13 +2,90 @@ package com.example.ninjamoney;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+
+    private Button income;
+    private Button expense;
+    private Button budget;
+    private Button status;
+    private Button report;
+    private Button chart;
+    private Button donate;
+    private Button settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setup();
+    }
+
+    private void setup(){
+        income = findViewById(R.id.income);
+        expense = findViewById(R.id.expense);
+        budget = findViewById(R.id.budget);
+        status = findViewById(R.id.status);
+        report = findViewById(R.id.report);
+        chart = findViewById(R.id.chart);
+        donate = findViewById(R.id.donate);
+        settings = findViewById(R.id.setting);
+
+        income.setOnClickListener(this);
+        expense.setOnClickListener(this);
+        budget.setOnClickListener(this);
+        status.setOnClickListener(this);
+        report.setOnClickListener(this);
+        chart.setOnClickListener(this);
+        donate.setOnClickListener(this);
+        settings.setOnClickListener(this);
+    }
+
+
+    @Override
+    public void onClick(View v) {
+        open(v);
+    }
+
+    private void open(View v) {
+        switch (v.getId()){
+            case R.id.income:
+                Intent intentInc = new Intent(this, Income.class);
+                startActivity(intentInc);
+                break;
+            case R.id.expense:
+                Intent intentExp = new Intent(this, Expense.class);
+                startActivity(intentExp);
+                break;
+            /*case R.id.budget:
+                Intent intentBud = new Intent(this, Budget.class);
+                startActivity(intentBud);
+                break;*/
+            case R.id.status:
+                Intent intentStat = new Intent(this, Status.class);
+                startActivity(intentStat);
+                break;
+            /*case R.id.report:
+                Intent intentRep = new Intent(this, Report.class);
+                startActivity(intentRep);
+                break;
+            case R.id.chart:
+                Intent intentChart = new Intent(this, Chart.class);
+                startActivity(intentChart);
+                break;
+            case R.id.donate:
+                Intent intentDon = new Intent(this, Donate.class);
+                startActivity(intentDon);
+                break;
+            case R.id.setting:
+                Intent intentSet = new Intent(this, Setting.class);
+                startActivity(intentSet);
+                break;*/
+
+        }
     }
 }
