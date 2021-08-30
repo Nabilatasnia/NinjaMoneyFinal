@@ -23,8 +23,8 @@
         android:layout_height="158dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginRight="50dp"
-        android:layout_marginBottom="50dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="54dp"
         android:scaleType="center"
         android:src="@drawable/add"
         app:fabSize="auto" />
