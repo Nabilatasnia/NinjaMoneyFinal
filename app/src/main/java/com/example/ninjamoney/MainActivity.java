@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         setup();
 
-        //Intent intentInc = new Intent(this, Login.class);
-        //startActivity(intentInc);
+        Intent intentInc = new Intent(this, Login.class);
+        startActivity(intentInc);
     }
 
     private void setup(){
