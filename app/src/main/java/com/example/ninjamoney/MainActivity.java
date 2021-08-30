@@ -15,12 +15,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button status;
     private Button report;
     private Button donate;
+    boolean flag = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
+
+        Intent intentInc = new Intent(this, Login.class);
+        startActivity(intentInc);
     }
 
     private void setup(){
