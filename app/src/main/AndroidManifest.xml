@@ -9,11 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NinjaMoney">
-        <activity android:name=".Input"></activity>
+        <activity android:name=".LoadingMenu">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Input" />
         <activity android:name=".ResetPassword" />
         <activity android:name=".Registration" />
         <activity android:name=".Login" />
-        <activity android:name=".Donate" />
         <activity android:name=".Donate" />
         <activity android:name=".Report" />
         <activity android:name=".Budget" />
@@ -21,11 +27,7 @@
         <activity android:name=".Expense" />
         <activity android:name=".Income" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
