@@ -12,5 +12,13 @@
                <item>Neptune</item>
            </string-array>
            -->
+    <string-array name="category_array">
+        <item>Food</item>
+        <item>Clothes</item>
+        <item>Rent</item>
+        <item>Education</item>
+        <item>Treatment</item>
+
+    </string-array>
 
 </resources>

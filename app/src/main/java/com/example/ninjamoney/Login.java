@@ -49,9 +49,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 String email = mEmail.getText().toString().trim();
                 String pass = mPass.getText().toString().trim();
 
+
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email Required");
-                    return;
                 }
                 if(TextUtils.isEmpty(pass)){
                     mPass.setError("Password Required");

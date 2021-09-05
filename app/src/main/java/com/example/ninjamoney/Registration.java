@@ -58,7 +58,6 @@ public class Registration extends AppCompatActivity implements View.OnClickListe
 
                 if(TextUtils.isEmpty(email)){
                     mEmail.setError("Email Required");
-                    return;
                 }
                 if(TextUtils.isEmpty(pass)){
                     mPass.setError("Password Required");

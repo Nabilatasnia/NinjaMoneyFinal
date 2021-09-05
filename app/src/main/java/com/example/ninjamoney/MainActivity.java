@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         setup();
 
-        Intent intentInc = new Intent(this, Login.class);
-        startActivity(intentInc);
+        //Intent intentInc = new Intent(this, Login.class);
+        //startActivity(intentInc);
     }
 
     private void setup(){
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void open(View v) {
         switch (v.getId()){
             case R.id.income:
-                Intent intentInc = new Intent(this, Income.class);
+                Intent intentInc = new Intent(this, Input.class);
                 startActivity(intentInc);
                 break;
             case R.id.expense:
