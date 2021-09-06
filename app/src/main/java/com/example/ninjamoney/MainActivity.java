@@ -1,7 +1,9 @@
 package com.example.ninjamoney;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,8 +25,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         setup();
 
-        //Intent intentInc = new Intent(this, Login.class);
-        //startActivity(intentInc);
+
     }
 
     private void setup(){
@@ -52,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void open(View v) {
         switch (v.getId()){
             case R.id.income:
-                Intent intentInc = new Intent(this, Input.class);
+                Intent intentInc = new Intent(this, Income.class);
                 startActivity(intentInc);
                 break;
             case R.id.expense:

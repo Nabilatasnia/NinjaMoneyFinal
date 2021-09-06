@@ -5,18 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".Input">
 
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="horizontal">
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:gravity="center">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -25,15 +21,9 @@ android:orientation="horizontal">
         android:textSize="20sp"
         android:textColor="@color/black"
         android:text="Amount:"
-
+        android:layout_marginLeft="20dp"
         />
-</RelativeLayout>
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="2"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    >
+
 
     <EditText
         android:layout_width="match_parent"
@@ -42,20 +32,18 @@ android:orientation="horizontal">
         android:hint="Add amount"
         android:textColor="@color/black"
         android:inputType="number"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+
         />
-</RelativeLayout>
+
 
 </LinearLayout>
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="horizontal">
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:gravity="center">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -64,35 +52,25 @@ android:orientation="horizontal">
         android:textSize="20dp"
         android:textColor="@color/black"
         android:textStyle="bold"
+        android:layout_marginLeft="20dp"
 
         />
-</RelativeLayout>
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="2"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    >
-
 
     <Spinner
         android:id="@+id/spinner"
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:spinnerMode="dropdown" />
-</RelativeLayout>
+
 
 </LinearLayout>
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="horizontal">
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:gravity="center">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -101,14 +79,10 @@ android:orientation="horizontal">
         android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@color/black"
+        android:layout_marginLeft="20dp"
         />
-</RelativeLayout>
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="2"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    >
+
+
 
     <EditText
         android:layout_width="match_parent"
@@ -116,20 +90,19 @@ android:orientation="horizontal">
         android:id="@+id/title"
         android:hint="Add title"
         android:textColor="@color/black"
+        android:layout_marginLeft="35sp"
+        android:layout_marginRight="10sp"
+        android:inputType="text"
         />
-</RelativeLayout>
+
 
 </LinearLayout>
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
-android:orientation="horizontal">
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    android:gravity="center">
+android:orientation="horizontal"
+    android:layout_marginLeft="20dp">
+
 
     <TextView
         android:layout_width="wrap_content"
@@ -140,25 +113,50 @@ android:orientation="horizontal">
         android:textStyle="bold"
 
         />
-</RelativeLayout>
-<RelativeLayout
-    android:layout_width="0dp"
-    android:layout_weight="2"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp"
-    >
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/source"
-        android:hint="Add amount"
+        android:hint="Add source"
         android:textColor="@color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         />
-</RelativeLayout>
+
 
 </LinearLayout>
-<LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginLeft="20dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Note:"
+            android:textSize="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/note"
+            android:hint="Add note"
+            android:textColor="@color/black"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            />
+
+
+    </LinearLayout>
+
+    <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="horizontal">

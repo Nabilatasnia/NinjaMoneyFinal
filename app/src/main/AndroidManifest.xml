@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NinjaMoney">
+        <activity android:name=".Input_expense"></activity>
         <activity android:name=".LoadingMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +27,7 @@
         <activity android:name=".Status" />
         <activity android:name=".Expense" />
         <activity android:name=".Income" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>

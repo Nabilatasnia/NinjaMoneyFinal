@@ -2,15 +2,13 @@ package com.example.ninjamoney;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-public class Input extends AppCompatActivity {
+public class Input_expense extends AppCompatActivity {
 
     private EditText amount;
     private EditText title;
@@ -25,22 +23,24 @@ public class Input extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input);
         setup();
-        Spinner();
+        //Spinner();
+
+
     }
 
     private void setup(){
         amount = findViewById(R.id.amount);
         title = findViewById(R.id.title);
         source = findViewById(R.id.source);
-        this.category = findViewById(R.id.spinner);
+        //category = findViewById(R.id.spinner);
         cancel = findViewById(R.id.button_cancel);
         save = findViewById(R.id.button_save);
     }
-    private void Spinner(){
+   /* private void Spinner(){
         Spinner spinner = (Spinner) findViewById(R.id.spinner);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-    }
+    }*/
 }
