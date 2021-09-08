@@ -7,18 +7,20 @@ public class Data {
     private String source;
     private String id;
     private String date;
-    private Data()
+    private String username;
+    public Data()
     {
 
     }
 
-    public Data(int amount, String category, String title, String source, String id, String date) {
+    public Data(int amount, String category, String title, String source, String id, String date, String username) {
         this.amount = amount;
         this.category = category;
         this.title = title;
         this.source = source;
         this.id = id;
         this.date = date;
+        this.username = username;
     }
 
     public int getAmount() {
@@ -67,5 +69,13 @@ public class Data {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

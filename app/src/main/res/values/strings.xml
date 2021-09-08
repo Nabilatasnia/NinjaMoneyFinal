@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">Ninja Money</string>
-
+    <string name="startScreen_slogan">Earn Mooney Track Mooney</string>
+    <string name="login">Login</string>
+    <string name="signup">Sign Up</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="enter_password">Enter Password</string>
+    <string name="remember_me">Remember Me</string>
+    <string name="forget_password">Forget Password</string>
+    <string name="create_account">Create Account</string>
+    <string name="enter_email">Enter Email</string>
+    <string name="username"></string>
 
     <string-array name="category_array">
         <item>Food</item>
@@ -10,5 +19,6 @@
         <item>Treatment</item>
         <item>Custom</item>
     </string-array>
+
 
 </resources>
