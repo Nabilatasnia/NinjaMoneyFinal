@@ -9,6 +9,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.example.ninjamoney.LoginSignUp.Login;
+import com.example.ninjamoney.LoginSignUp.StartScreen;
+import com.example.ninjamoney.Model.Data;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button income;
@@ -17,16 +22,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button status;
     private Button report;
     private Button donate;
-    boolean flag = false;
+
+    Data data = new Data();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
-
-
     }
+
 
     private void setup(){
         income = findViewById(R.id.income);
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void open(View v) {
         switch (v.getId()){
             case R.id.income:
-                Intent intentInc = new Intent(this, Income.class);
+                Intent intentInc = new Intent(this, Input.class);
                 startActivity(intentInc);
                 break;
             case R.id.expense:
@@ -69,11 +74,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentStat);
                 break;
             case R.id.report:
-                Intent intentRep = new Intent(this, Report.class);
+                FirebaseAuth.getInstance().signOut();
+                Intent intentRep = new Intent(this, Login.class);
                 startActivity(intentRep);
                 break;
             case R.id.donate:
-                Intent intentDon = new Intent(this, Donate.class);
+                Intent intentDon = new Intent(this, StartScreen.class);
                 startActivity(intentDon);
                 break;
 

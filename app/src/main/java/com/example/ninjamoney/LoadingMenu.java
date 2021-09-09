@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.example.ninjamoney.LoginSignUp.StartScreen;
+
 public class LoadingMenu extends AppCompatActivity {
 
     @Override
@@ -17,7 +19,7 @@ public class LoadingMenu extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(LoadingMenu.this, MainActivity.class));
+                startActivity(new Intent(LoadingMenu.this, StartScreen.class));
                 finish();
             }
         },2000);
