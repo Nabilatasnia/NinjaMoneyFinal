@@ -39,33 +39,7 @@ android:orientation="horizontal">
 
 
 </LinearLayout>
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:orientation="horizontal">
 
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Category:"
-        android:textSize="20dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
-        android:layout_marginLeft="20dp"
-
-        />
-
-    <Spinner
-        android:id="@+id/spinner"
-
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-
-        android:spinnerMode="dropdown" />
-
-
-</LinearLayout>
 <LinearLayout
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
@@ -107,22 +81,19 @@ android:orientation="horizontal"
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Source:"
+        android:text="Account:"
         android:textSize="20dp"
         android:textColor="@color/black"
         android:textStyle="bold"
 
         />
 
-    <EditText
+    <Spinner
+        android:id="@+id/account_spinner"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/source"
-        android:hint="Add source"
-        android:textColor="@color/black"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        />
+        android:layout_marginRight="10dp"></Spinner>
 
 
 </LinearLayout>

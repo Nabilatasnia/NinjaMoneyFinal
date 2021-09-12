@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void open(View v) {
         switch (v.getId()){
             case R.id.income:
-                Intent intentInc = new Intent(this, Input.class);
+                Intent intentInc = new Intent(this, Income.class);
                 startActivity(intentInc);
                 break;
             case R.id.expense:

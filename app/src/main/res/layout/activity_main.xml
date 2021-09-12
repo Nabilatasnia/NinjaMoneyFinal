@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context=".MainActivity"
-    android:background="@drawable/menubg">
+    android:background="@drawable/menubg"
+    tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/text1"
@@ -39,8 +39,10 @@
         android:layout_centerInParent="true"
 
         android:layout_marginTop="30dp"
-        android:background="@drawable/solidbg">
-
+        android:background="@drawable/solidbg"
+        android:paddingStart="100dp"
+        android:gravity="center"
+        >
 
     </LinearLayout>
 
@@ -50,8 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/text2"
+        android:layout_marginTop="30dp"
         android:height="50dp"
-        android:layout_marginTop="15dp"
         android:paddingLeft="40dp"
         android:paddingTop="30dp"
         android:text="Your balance is"
@@ -64,24 +66,20 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/text3"
         android:paddingLeft="40dp"
-        android:text="300$"
+        android:text="300৳"
         android:textColor="#FAFAFA"
         android:textSize="55dp" />
-
-    />
-
-
-
 
 
     <LinearLayout
         android:layout_width="210dp"
         android:layout_height="500dp"
-        android:layout_alignParentBottom="true"
         android:layout_below="@+id/text4"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
         android:orientation="vertical"
-        android:paddingTop="60dp"
-        android:paddingLeft="50dp">
+        android:paddingLeft="50dp"
+        android:paddingTop="60dp">
 
         <Button
             android:id="@+id/income"
@@ -90,37 +88,42 @@
             android:drawableTop="@drawable/income"
             android:drawableTint="@color/black"
             android:paddingTop="10dp"
-            android:text="Income"
 
+            android:shadowDx="4"
+            android:shadowDy="25"
+            android:text="Income"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:backgroundTint="#64C6BE"
+            app:cornerRadius="10dp"
             app:iconPadding="10dp" />
 
         <Button
             android:id="@+id/budget"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:paddingTop="10dp"
             android:drawableTop="@drawable/budget"
             android:drawableTint="@color/black"
+            android:paddingTop="10dp"
             android:text="Budget"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:backgroundTint="#64C6BE"
+            app:cornerRadius="10dp"
             app:iconPadding="10dp" />
 
         <Button
             android:id="@+id/report"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:paddingTop="10dp"
             android:drawableTop="@drawable/report"
             android:drawableTint="@color/black"
+            android:paddingTop="10dp"
             android:text="Report"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:backgroundTint="#64C6BE"
+            app:cornerRadius="10dp"
             app:iconPadding="10dp" />
 
 
@@ -129,39 +132,43 @@
     <LinearLayout
         android:layout_width="210dp"
         android:layout_height="500dp"
+        android:layout_below="@+id/text4"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="30dp"
         android:layout_marginRight="-2dp"
         android:layout_marginBottom="0dp"
-        android:layout_below="@+id/text4"
+
         android:orientation="vertical"
-        android:paddingTop="60dp"
-        android:paddingLeft="30dp">
+        android:paddingLeft="30dp"
+        android:paddingTop="60dp">
 
         <Button
             android:id="@+id/expense"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:paddingTop="10dp"
             android:drawableTop="@drawable/expense"
             android:drawableTint="@color/black"
+            android:paddingTop="10dp"
             android:text="Expense"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:backgroundTint="#64C6BE"
+            app:cornerRadius="10dp"
             app:iconPadding="10dp" />
 
         <Button
             android:id="@+id/status"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:paddingTop="10dp"
             android:drawableTop="@drawable/moneystatus"
             android:drawableTint="@color/black"
+            android:paddingTop="10dp"
             android:text="Balance"
             android:textColor="@color/black"
             android:textSize="15sp"
             app:backgroundTint="#64C6BE"
+            app:cornerRadius="10dp"
             app:iconPadding="10dp" />
 
 
@@ -169,14 +176,15 @@
             android:id="@+id/donate"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:paddingTop="10dp"
             android:drawableTop="@drawable/donate"
             android:drawableTint="@color/black"
+            android:paddingTop="10dp"
             android:text="Donate"
             android:textColor="@color/black"
             android:textSize="15sp"
 
             app:backgroundTint="#64C6BE"
+            app:cornerRadius="10dp"
             app:iconPadding="10dp" />
 
     </LinearLayout>

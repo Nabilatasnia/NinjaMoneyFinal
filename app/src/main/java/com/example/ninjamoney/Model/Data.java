@@ -5,22 +5,23 @@ public class Data {
     private String category;
     private String title;
     private String source;
+    private String note;
     private String id;
     private String date;
-    private String username;
+
     public Data()
     {
 
     }
 
-    public Data(int amount, String category, String title, String source, String id, String date, String username) {
+    public Data(int amount, String title, String id, String date, String note) {
         this.amount = amount;
-        this.category = category;
+
         this.title = title;
-        this.source = source;
+        //this.source=source;
         this.id = id;
         this.date = date;
-        this.username = username;
+        this.note=note;
     }
 
     public int getAmount() {
@@ -47,13 +48,13 @@ public class Data {
         this.title = title;
     }
 
-    public String getSource() {
+   /* public String getSource() {
         return source;
     }
 
     public void setSource(String source) {
         this.source = source;
-    }
+    }*/
 
     public String getId() {
         return id;
@@ -71,11 +72,11 @@ public class Data {
         this.date = date;
     }
 
-    public String getUsername() {
-        return username;
+    public String getNote() {
+        return note;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setNote(String note) {
+        this.note = note;
     }
 }

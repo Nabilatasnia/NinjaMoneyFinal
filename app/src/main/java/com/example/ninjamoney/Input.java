@@ -3,20 +3,30 @@ package com.example.ninjamoney;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-public class Input extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+public class Input extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+    private FirebaseAuth mAuth;
+    private DatabaseReference mIncomeDatabase;
     private EditText amount;
     private EditText title;
-    private EditText source;
+
     private EditText note;
-    private Spinner category;
+    private Spinner account;
     private Button cancel;
     private Button save;
 
@@ -29,18 +39,26 @@ public class Input extends AppCompatActivity {
     }
 
     private void setup(){
-        amount = findViewById(R.id.amount);
-        title = findViewById(R.id.title);
-        source = findViewById(R.id.source);
-        this.category = findViewById(R.id.spinner);
-        cancel = findViewById(R.id.button_cancel);
-        save = findViewById(R.id.button_save);
+
+        account=(Spinner) findViewById(R.id.account_spinner);
+
     }
+
     private void Spinner(){
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.category_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        account.setAdapter(adapter);
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
