@@ -22,6 +22,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,6 +42,9 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
     private Button forgotPass_btn;
 
     private FirebaseAuth firebaseAuth;
+    FirebaseDatabase database;
+    DatabaseReference dRef;
+    FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +52,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         setup();
         firebaseAuth = FirebaseAuth.getInstance();
+        dRef = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     private void setup() {
@@ -96,6 +108,29 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
+//    private void userProfile(){
+//        String email = email_til.getEditText().getText().toString().trim();
+//        DatabaseReference dRef = FirebaseDatabase.getInstance().getReference("Users");
+//        Query checkUser = dRef.orderByChild("email").equalTo(email);
+//
+//        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                if(snapshot.exists()){
+//                    String usernameFromDB = snapshot.child(email).child("username").getValue(String.class);
+//                    Toast.makeText(Login.this, usernameFromDB, Toast.LENGTH_SHORT).show();
+//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+//
+//                    intent.putExtra("username", usernameFromDB);
+//                    startActivity(intent);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//    }
     @Override
     public void onClick(View v) {
         open(v);
@@ -118,9 +153,26 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(Login.this, "Login Complete", Toast.LENGTH_SHORT).show();
+//                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+//                                @Override
+//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                                    GlobalVar.currentUser = snapshot.getValue(User.class);
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(@NonNull DatabaseError error) {
+//
+//                                }
+//                            });
+                            database = FirebaseDatabase.getInstance();
+                            mUser = firebaseAuth.getCurrentUser();
+                            String uid = mUser.getUid();
+                            Toast.makeText(Login.this, uid, Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
+                            finish();
+//                            userProfile();
+
                         } else {
                             Toast.makeText(Login.this, "Incorrect email address or password", Toast.LENGTH_SHORT).show();
                         }

@@ -47,8 +47,8 @@ private RecyclerView recyclerView;
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
         mAuth=FirebaseAuth.getInstance();
-        FirebaseUser muser=mAuth.getCurrentUser();
-        String uid=muser.getUid();
+        FirebaseUser muser = mAuth.getCurrentUser();
+        String uid = muser.getUid();
         mIncomeDatabase= FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
     }
 
@@ -130,10 +130,10 @@ private RecyclerView recyclerView;
                     return;
                 }
 
-                String id=mIncomeDatabase.push().getKey();
+                String id = mIncomeDatabase.push().getKey();
                 String mDate = DateFormat.getDateInstance().format(new Date());
 
-                Data data=new Data(amountint,title, id,mDate,note);
+                Data data=new Data(amountint, title, id, mDate, note);
                 mIncomeDatabase.child(id).setValue(data);
 
                 Toast.makeText(Income.this,"Data ADDED", Toast.LENGTH_SHORT).show();
