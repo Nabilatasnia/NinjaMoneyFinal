@@ -10,38 +10,47 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ninjamoney.Model.Data;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.firebase.ui.database.SnapshotParser;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 
 import java.text.DateFormat;
 import java.util.Date;
 
-public class Income extends AppCompatActivity  implements View.OnClickListener {
+public class Income extends AppCompatActivity implements View.OnClickListener {
     private FloatingActionButton fab_income_btn;
 private FirebaseAuth mAuth;
+private LinearLayoutManager layoutManager;
 private DatabaseReference mIncomeDatabase;
 private RecyclerView recyclerView;
+private FirebaseRecyclerAdapter adapter;
     @Override
   protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income);
         setup();
+        Load();
     }
 
     private void setup(){
         fab_income_btn = findViewById(R.id.add);
         fab_income_btn.setOnClickListener(this);
         recyclerView=findViewById(R.id.recycler_id_income);
-        LinearLayoutManager layoutManager=new LinearLayoutManager(this);
+        layoutManager=new LinearLayoutManager(this);
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerView.setHasFixedSize(true);
@@ -50,40 +59,6 @@ private RecyclerView recyclerView;
         FirebaseUser muser=mAuth.getCurrentUser();
         String uid=muser.getUid();
         mIncomeDatabase= FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-    public static class MyViewHolder extends RecyclerView.ViewHolder{
-        View mview;
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            mview=itemView;
-        }
-        private void setTitle(String title)
-        {
-            TextView mTitle=mview.findViewById(R.id.type_txt_income);
-            mTitle.setText(title);
-        }
-        private void setNote(String note)
-        {
-            TextView mNote=mview.findViewById(R.id.type_txt_income);
-            mNote.setText(note);
-        }
-        private void setDate(String date)
-        {
-            TextView mDate=mview.findViewById(R.id.date_txt_income);
-            mDate.setText(date);
-        }
-        private void setAmount(int amount)
-        {
-            TextView mAmount=mview.findViewById(R.id.amount_txt_income);
-            String stamount=String.valueOf(amount);
-            mAmount.setText(stamount);
-        }
     }
     @Override
     public void onClick(View v) {
@@ -149,7 +124,56 @@ private RecyclerView recyclerView;
             }
         });
         dialog.show();
-        }
+    }
+
+      private void Load(){
+        Query query = FirebaseDatabase.getInstance().getReference().child("IncomeData");
+
+        FirebaseRecyclerOptions<Data> options = new FirebaseRecyclerOptions.Builder<Data>()
+                .setQuery(query, new SnapshotParser<Data>() {
+                    @NonNull
+                    @Override
+                    public Data parseSnapshot(@NonNull DataSnapshot snapshot) {
+
+                        return new Data(
+                                Integer.parseInt(snapshot.child("amount").getValue().toString()),
+                                snapshot.child("title").getValue().toString(),
+                                snapshot.child("id").getValue().toString(),
+                                snapshot.child("date").getValue().toString(),
+                                snapshot.child("note").getValue().toString());
+                    }
+                })
+                .build();
+
+
+        adapter = new FirebaseRecyclerAdapter<Data, ViewHolder>(options) {
+       @Override
+            public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.income_reclycler_data, parent, false);
+
+                return new ViewHolder(view);
+            }
+
+            @Override
+            protected void onBindViewHolder(ViewHolder holder,final int position, Data model) {
+
+                    holder.setTitle(model.getTitle());
+                    holder.setNote(model.getNote());
+                    holder.setDate(model.getDate());
+                    holder.setAmount(model.getAmount());
+                 //   holder.root.setOnClickListener(new View.OnClickListener() {
+            }
+
+
+        };
+
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
+
+
 
     }
+
 
