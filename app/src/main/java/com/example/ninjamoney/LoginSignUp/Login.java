@@ -164,10 +164,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
 //
 //                                }
 //                            });
-                            database = FirebaseDatabase.getInstance();
-                            mUser = firebaseAuth.getCurrentUser();
-                            String uid = mUser.getUid();
-                            Toast.makeText(Login.this, uid, Toast.LENGTH_SHORT).show();
+//                            database = FirebaseDatabase.getInstance();
+//                            mUser = firebaseAuth.getCurrentUser();
+//                            String uid = mUser.getUid();
+                            Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                             finish();

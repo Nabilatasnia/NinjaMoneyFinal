@@ -43,7 +43,7 @@ private FirebaseRecyclerAdapter adapter;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income);
         setup();
-        Load();
+//        Load();
     }
 
     private void setup(){
@@ -126,51 +126,51 @@ private FirebaseRecyclerAdapter adapter;
         dialog.show();
     }
 
-      private void Load(){
-        Query query = FirebaseDatabase.getInstance().getReference().child("IncomeData");
-
-        FirebaseRecyclerOptions<Data> options = new FirebaseRecyclerOptions.Builder<Data>()
-                .setQuery(query, new SnapshotParser<Data>() {
-                    @NonNull
-                    @Override
-                    public Data parseSnapshot(@NonNull DataSnapshot snapshot) {
-
-                        return new Data(
-                                Integer.parseInt(snapshot.child("amount").getValue().toString()),
-                                snapshot.child("title").getValue().toString(),
-                                snapshot.child("id").getValue().toString(),
-                                snapshot.child("date").getValue().toString(),
-                                snapshot.child("note").getValue().toString());
-                    }
-                })
-                .build();
-
-
-        adapter = new FirebaseRecyclerAdapter<Data, ViewHolder>(options) {
-       @Override
-            public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.income_reclycler_data, parent, false);
-
-                return new ViewHolder(view);
-            }
-
-            @Override
-            protected void onBindViewHolder(ViewHolder holder,final int position, Data model) {
-
-                    holder.setTitle(model.getTitle());
-                    holder.setNote(model.getNote());
-                    holder.setDate(model.getDate());
-                    holder.setAmount(model.getAmount());
-                 //   holder.root.setOnClickListener(new View.OnClickListener() {
-            }
-
-
-        };
-
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
-    }
+//      private void Load(){
+//        Query query = FirebaseDatabase.getInstance().getReference().child("IncomeData");
+//
+//        FirebaseRecyclerOptions<Data> options = new FirebaseRecyclerOptions.Builder<Data>()
+//                .setQuery(query, new SnapshotParser<Data>() {
+//                    @NonNull
+//                    @Override
+//                    public Data parseSnapshot(@NonNull DataSnapshot snapshot) {
+//
+//                        return new Data(
+//                                Integer.parseInt(snapshot.child("amount").getValue().toString()),
+//                                snapshot.child("title").getValue().toString(),
+//                                snapshot.child("id").getValue().toString(),
+//                                snapshot.child("date").getValue().toString(),
+//                                snapshot.child("note").getValue().toString());
+//                    }
+//                })
+//                .build();
+//
+//
+//        adapter = new FirebaseRecyclerAdapter<Data, ViewHolder>(options) {
+//       @Override
+//            public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+//                View view = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.income_reclycler_data, parent, false);
+//
+//                return new ViewHolder(view);
+//            }
+//
+//            @Override
+//            protected void onBindViewHolder(ViewHolder holder,final int position, Data model) {
+//
+//                    holder.setTitle(model.getTitle());
+//                    holder.setNote(model.getNote());
+//                    holder.setDate(model.getDate());
+//                    holder.setAmount(model.getAmount());
+//                 //   holder.root.setOnClickListener(new View.OnClickListener() {
+//            }
+//
+//
+//        };
+//
+//        recyclerView.setAdapter(adapter);
+//        adapter.startListening();
+//    }
 
 
 
