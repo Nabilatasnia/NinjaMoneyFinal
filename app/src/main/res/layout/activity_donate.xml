@@ -5,5 +5,57 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Donate">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
 
+        android:orientation="vertical"
+        android:background="#FFF1F3FC"
+        >
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            app:cardElevation="5dp"
+            android:elevation="10dp"
+            android:backgroundTint="@color/white">
+           <RelativeLayout
+               android:layout_height="match_parent"
+               android:layout_width="match_parent"
+               android:layout_marginLeft="10sp"
+               android:layout_marginRight="10sp"
+               android:layout_marginBottom="10sp">
+                <TextView
+                    android:id="@+id/donatetext"
+                    android:layout_marginTop="5dp"
+                    android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
+                    android:text="Donate goal"
+                    android:layout_centerVertical="true"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    android:textColor="@color/black">
+                    </TextView>
+
+
+               <ProgressBar
+
+                   android:layout_height="wrap_content"
+                   android:layout_width="match_parent"
+                   android:layout_marginTop="5dp"
+                 android:layout_below="@id/donatetext"
+                   style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                   >
+               </ProgressBar>
+
+</RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recycler_id_income">
+
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

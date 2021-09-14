@@ -87,8 +87,8 @@
             android:layout_height="120dp"
             android:drawableTop="@drawable/income"
             android:drawableTint="@color/black"
-            android:paddingTop="10dp"
 
+            android:paddingTop="10dp"
             android:shadowDx="4"
             android:shadowDy="25"
             android:text="Income"

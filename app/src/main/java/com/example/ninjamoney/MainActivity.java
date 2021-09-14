@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentRep);
                 break;
             case R.id.donate:
-                Intent intentDon = new Intent(this, StartScreen.class);
+                Intent intentDon = new Intent(this, Donate.class);
                 startActivity(intentDon);
                 break;
 
