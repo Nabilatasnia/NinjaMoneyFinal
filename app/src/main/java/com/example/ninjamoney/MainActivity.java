@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button donate;
     private TextView text2;
 
-//    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth;
 //    DatabaseReference database;
 //    DatabaseReference dRef;
 //    FirebaseUser mUser;
