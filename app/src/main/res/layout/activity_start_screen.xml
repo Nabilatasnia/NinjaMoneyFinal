@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,23 +9,22 @@
     android:backgroundTint="@color/teal_700"
     tools:context=".LoginSignUp.StartScreen">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/logo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
             android:layout_marginTop="80dp"
             android:src="@drawable/logo" />
-
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="40dp">
+            android:layout_marginTop="40dp"
+            android:layout_below="@+id/logo"
+            >
 
             <Button
                 android:id="@+id/login_btn"
@@ -48,10 +47,10 @@
                 android:backgroundTint="#64C6BE"
                 android:text="@string/signup"
                 android:textColor="@color/black"
-                android:transitionName="transition_signup"/>
+                android:transitionName="transition_signup" />
 
         </LinearLayout>
 
-    </LinearLayout>
 
-</ScrollView>
+
+</RelativeLayout>
