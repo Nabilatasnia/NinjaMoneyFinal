@@ -43,7 +43,7 @@ private FirebaseRecyclerAdapter adapter;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income);
         setup();
-        Load();
+
     }
 
     private void setup(){
@@ -112,7 +112,7 @@ private FirebaseRecyclerAdapter adapter;
                 mIncomeDatabase.child(id).setValue(data);
 
                 Toast.makeText(Income.this,"Data ADDED", Toast.LENGTH_SHORT).show();
-
+               // Load();
 
                 dialog.dismiss();
             }

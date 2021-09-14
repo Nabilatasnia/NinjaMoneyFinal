@@ -19,7 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardElevation="5dp"
-            android:elevation="10dp">
+            android:elevation="10dp"
+            android:backgroundTint="@color/teal_700">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,8 +38,9 @@
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
                         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:text="Income"
+                        android:textStyle="bold"
                         />
 
                 </RelativeLayout>
@@ -49,14 +51,15 @@
                     android:layout_margin="10dp"
 
                     android:layout_height="wrap_content">
+
                     <TextView
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
                         android:id="@+id/income_txt_result"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="000000.00"
-                        />
+                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                        android:textColor="#F0F3F0"
+                        android:textStyle="bold" />
 
                 </RelativeLayout>
             </LinearLayout>

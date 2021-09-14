@@ -7,6 +7,15 @@
     android:background="@drawable/solidbg"
     tools:context=".LoadingMenu">
 
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/logo">
+
+    </ImageView>
+
 
 
 

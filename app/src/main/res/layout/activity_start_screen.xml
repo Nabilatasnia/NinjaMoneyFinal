@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     android:padding="30dp"
+    android:backgroundTint="@color/teal_700"
     tools:context=".LoginSignUp.StartScreen">
 
     <LinearLayout
@@ -14,31 +15,12 @@
         android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="80dp"
-            android:src="@drawable/budget" />
+            android:src="@drawable/logo" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/app_name"
-            android:textAlignment="center"
-            android:textAllCaps="true"
-            android:textColor="@color/black"
-            android:textSize="56sp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:fontFamily="sans-serif-medium"
-            android:text="@string/startScreen_slogan"
-            android:textAlignment="center"
-            android:textColor="@color/black"
-            android:textSize="45sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,9 +34,10 @@
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
                 android:backgroundTint="#64C6BE"
+
                 android:text="@string/login"
                 android:textColor="@color/black"
-                android:transitionName="transition_login"/>
+                android:transitionName="transition_login" />
 
             <Button
                 android:id="@+id/signup_btn"
