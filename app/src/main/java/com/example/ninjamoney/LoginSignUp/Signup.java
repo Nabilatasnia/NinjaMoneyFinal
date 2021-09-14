@@ -22,6 +22,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -37,7 +38,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
     DatabaseReference dRef;
-
+//    FirebaseUser mUser;
     User user;
 
     @Override
@@ -47,7 +48,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         setup();
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-        dRef = database.getReference();
+//        mUser = firebaseAuth.getCurrentUser();
+//        String uid = mUser.getUid();
+        dRef = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     private void setup() {
@@ -135,21 +138,21 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                 startActivity(starScreen);
                 break;
             case R.id.signup_btn:
-                String username = username_til.getEditText().getText().toString().trim();
                 String email = email_til.getEditText().getText().toString().trim();
                 String password = password_til.getEditText().getText().toString().trim();
 
                 if (!checkIfValidUsername() | !checkIfValidEmail() | !checkIfValidPassword()) {
                     return;
                 }
-                user = new User(username);
-//                dRef.push().setValue(user);
-
                 firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(Signup.this, "Signup Complete", Toast.LENGTH_SHORT).show();
+                            String username = username_til.getEditText().getText().toString().trim();
+                            String id = dRef.push().getKey();
+                            user = new User(username, email);
+                            dRef.child(id).setValue(user);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         } else {

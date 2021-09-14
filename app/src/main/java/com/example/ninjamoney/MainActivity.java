@@ -1,5 +1,7 @@
 package com.example.ninjamoney;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,11 +10,23 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ninjamoney.LoginSignUp.GlobalVar;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.StartScreen;
+import com.example.ninjamoney.LoginSignUp.User;
 import com.example.ninjamoney.Model.Data;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,7 +36,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button status;
     private Button report;
     private Button donate;
+    private TextView text2;
 
+//    private FirebaseAuth firebaseAuth;
+//    DatabaseReference database;
+//    DatabaseReference dRef;
+//    FirebaseUser mUser;
+//    User user;
     Data data = new Data();
 
     @Override
@@ -30,8 +50,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
+//        text2.setText(GlobalVar.currentUser.getUsername());
+//        showUsername();
+//        currentUsername();
     }
 
+//    private void showUsername() {
+//        Intent intent = getIntent();
+//        String User_username = intent.getStringExtra("username");
+//        Toast.makeText(MainActivity.this, User_username, Toast.LENGTH_SHORT).show();
+//        text2.setText(User_username);
+//    }
 
     private void setup(){
         income = findViewById(R.id.income);
@@ -40,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         status = findViewById(R.id.status);
         report = findViewById(R.id.report);
         donate = findViewById(R.id.donate);
+        text2 = findViewById(R.id.text2);
 
         income.setOnClickListener(this);
         expense.setOnClickListener(this);
@@ -47,6 +77,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         status.setOnClickListener(this);
         report.setOnClickListener(this);
         donate.setOnClickListener(this);
+        text2.setOnClickListener(this);
     }
 
 
