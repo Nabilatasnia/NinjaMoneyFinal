@@ -27,7 +27,7 @@
         android:layout_below="@+id/text1"
         android:height="50dp"
         android:paddingLeft="20dp"
-        android:text="Nabila Tasnia"
+        android:text=""
         android:textColor="#070707"
         android:textSize="40dp" />
 

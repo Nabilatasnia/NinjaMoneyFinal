@@ -39,10 +39,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView text2;
 
     private FirebaseAuth firebaseAuth;
-//    DatabaseReference database;
-//    DatabaseReference dRef;
-//    FirebaseUser mUser;
-//    User user;
+    private FirebaseDatabase database;
+    private DatabaseReference dRef;
+    private FirebaseUser firebaseUser;
+    String uid;
     Data data = new Data();
 
     @Override
@@ -50,17 +50,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setup();
-//        text2.setText(GlobalVar.currentUser.getUsername());
-//        showUsername();
-//        currentUsername();
+        firebase();
     }
 
-//    private void showUsername() {
-//        Intent intent = getIntent();
-//        String User_username = intent.getStringExtra("username");
-//        Toast.makeText(MainActivity.this, User_username, Toast.LENGTH_SHORT).show();
-//        text2.setText(User_username);
-//    }
+    private void firebase(){
+        firebaseAuth = FirebaseAuth.getInstance();
+        database = FirebaseDatabase.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();
+        uid = firebaseUser.getUid();
+        dRef = database.getReference().child("Users").child(uid);
+        Toast.makeText(MainActivity.this, uid, Toast.LENGTH_SHORT).show();
+
+        Query query = dRef.orderByChild("email");
+
+        query.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
+                if(snapshot.exists()){
+                    String name = snapshot.child("username").getValue().toString();
+                    text2.setText(name);
+                }
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot snapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot snapshot, String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+    }
 
     private void setup(){
         income = findViewById(R.id.income);

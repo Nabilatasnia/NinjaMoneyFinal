@@ -38,7 +38,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
     DatabaseReference dRef;
-//    FirebaseUser mUser;
+    FirebaseUser mUser;
     User user;
 
     @Override
@@ -48,9 +48,7 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         setup();
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-//        mUser = firebaseAuth.getCurrentUser();
-//        String uid = mUser.getUid();
-        dRef = FirebaseDatabase.getInstance().getReference().child("Users");
+//        dRef = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     private void setup() {
@@ -140,7 +138,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
             case R.id.signup_btn:
                 String email = email_til.getEditText().getText().toString().trim();
                 String password = password_til.getEditText().getText().toString().trim();
-
                 if (!checkIfValidUsername() | !checkIfValidEmail() | !checkIfValidPassword()) {
                     return;
                 }
@@ -148,6 +145,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+                            mUser = firebaseAuth.getCurrentUser();
+                            String uid = mUser.getUid();
+                            dRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
                             Toast.makeText(Signup.this, "Signup Complete", Toast.LENGTH_SHORT).show();
                             String username = username_til.getEditText().getText().toString().trim();
                             String id = dRef.push().getKey();
