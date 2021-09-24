@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Dialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.example.ninjamoney.Model.Data;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -101,7 +99,7 @@ public class Expense extends AppCompatActivity  implements View.OnClickListener 
                 String id=mExpenseDatabase.push().getKey();
                 String mDate = DateFormat.getDateInstance().format(new Date());
 
-                Data data=new Data(amountint,title, id,mDate,note);
+                Data data=new Data(amountint,title, mDate,note);
                 mExpenseDatabase.child(id).setValue(data);
 
                 Toast.makeText(Expense.this,"Data ADDED", Toast.LENGTH_SHORT).show();

@@ -1,4 +1,4 @@
-package com.example.ninjamoney.Model;
+package com.example.ninjamoney;
 
 public class Data {
     private int amount;
@@ -14,12 +14,12 @@ public class Data {
 
     }
 
-    public Data(int amount, String title, String id, String date, String note) {
+    public Data(int amount, String title,  String date, String note) {
         this.amount = amount;
 
         this.title = title;
         //this.source=source;
-        this.id = id;
+
         this.date = date;
         this.note=note;
     }
@@ -32,14 +32,6 @@ public class Data {
         this.amount = amount;
     }
 
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -47,14 +39,6 @@ public class Data {
     public void setTitle(String title) {
         this.title = title;
     }
-
-   /* public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }*/
 
     public String getId() {
         return id;
