@@ -67,6 +67,7 @@ recyclerAdapter adapter;
                 data.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
+
                     Data dataobj ;
                     int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
 
