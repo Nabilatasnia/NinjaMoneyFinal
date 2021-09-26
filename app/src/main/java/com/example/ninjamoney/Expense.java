@@ -2,6 +2,7 @@ package com.example.ninjamoney;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Expense extends AppCompatActivity  implements View.OnClickListener {
@@ -34,6 +36,20 @@ public class Expense extends AppCompatActivity  implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
+        /*ArrayList<Data> hospitals = new ArrayList<>();
+        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
+        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
+        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
+        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
+        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
+        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
+        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
+        recyclerAdapter adapter = new recyclerAdapter(this);
+        adapter.setHospitals(hospitals);
+        recyclerView=findViewById(R.id.recycler_id_expense);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));*/
+
         setup();
     }
     private void setup(){
@@ -99,7 +115,7 @@ public class Expense extends AppCompatActivity  implements View.OnClickListener 
                 String id=mExpenseDatabase.push().getKey();
                 String mDate = DateFormat.getDateInstance().format(new Date());
 
-                Data data=new Data(amountint,title, mDate,note);
+                Data data=new Data(amountint, mDate,note,title);
                 mExpenseDatabase.child(id).setValue(data);
 
                 Toast.makeText(Expense.this,"Data ADDED", Toast.LENGTH_SHORT).show();

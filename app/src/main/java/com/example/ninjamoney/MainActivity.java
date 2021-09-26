@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private DatabaseReference dRef;
     private FirebaseUser firebaseUser;
     String uid;
-    Data data = new Data();
+    //Data data = new Data();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

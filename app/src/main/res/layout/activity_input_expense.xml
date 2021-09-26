@@ -54,13 +54,16 @@
 
             />
 
-       <!-- <Spinner
+        <Spinner
             android:id="@+id/spinner"
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:spinnerMode="dropdown">
-        </Spinner> -->
+            android:spinnerMode="dropdown"
+
+            android:entries="@array/category_array"
+            >
+        </Spinner>
 
 
     </LinearLayout>

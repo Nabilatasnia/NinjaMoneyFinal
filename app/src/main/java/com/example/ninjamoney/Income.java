@@ -1,5 +1,4 @@
 package com.example.ninjamoney;
-
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,11 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,7 +31,6 @@ public class Income extends AppCompatActivity implements View.OnClickListener {
 private FirebaseAuth mAuth;
 private DatabaseReference mIncomeDatabase;
 private RecyclerView recyclerView;
-ArrayList<Data> list;
 recyclerAdapter adapter;
 
     @Override
@@ -40,6 +38,7 @@ recyclerAdapter adapter;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income);
         setup();
+        Load();
     }
 
     private void setup(){
@@ -48,22 +47,39 @@ recyclerAdapter adapter;
         mAuth=FirebaseAuth.getInstance();
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
-        list = new ArrayList<>();
-        adapter=new recyclerAdapter(list,this);
-
         mIncomeDatabase= FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-        Query query = mIncomeDatabase.orderByChild("date");
+
+    }
+    private void Load()
+    {
         recyclerView=findViewById(R.id.recycler_id_income);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(adapter);
-        query.addValueEventListener(new ValueEventListener() {
+        ArrayList<Data> data=new ArrayList<>();
+        adapter= new recyclerAdapter();
+        FirebaseDatabase db=FirebaseDatabase.getInstance();
+        mAuth=FirebaseAuth.getInstance();
+        FirebaseUser muser = mAuth.getCurrentUser();
+        String uid = muser.getUid();
+        DatabaseReference dref= db.getReference().child("IncomeData").child(uid);
+        Query checkIncome=dref.orderByChild("date");
+        checkIncome.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
-                        for(DataSnapshot dataSnapshot : snapshot.getChildren()){
-                            Data model=dataSnapshot.getValue(Data.class);
-                            list.add(model);
-                        }
-                        adapter.notifyDataSetChanged();
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    Data dataobj ;
+                    int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+
+                    String date=dataSnapshot.child("date").getValue().toString();
+                    String title=dataSnapshot.child("title").getValue().toString();
+                    String note=dataSnapshot.child("note").getValue().toString();
+                    dataobj=new Data(amount,date,note,title);
+
+                   // Toast.makeText(this,data.getNote(),Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(Income.this, dataobj.getNote(), Toast.LENGTH_SHORT).show();
+
+                    data.add(dataobj);
+                }
+                adapter.notifyDataSetChanged();
             }
 
             @Override
@@ -71,9 +87,16 @@ recyclerAdapter adapter;
 
             }
         });
+        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
+        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
+        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
+        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
 
+
+        adapter.setData(data);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
-
     @Override
     public void onClick(View v) {
         open(v);
@@ -120,7 +143,7 @@ recyclerAdapter adapter;
             String id = mIncomeDatabase.push().getKey();
             String mDate = DateFormat.getDateInstance().format(new Date());
 
-            Data data=new Data(amountint, title,  mDate, note);
+            Data data=new Data(amountint, mDate,  note, title);
             mIncomeDatabase.child(id).setValue(data);
 
             Toast.makeText(Income.this,"Data ADDED", Toast.LENGTH_SHORT).show();

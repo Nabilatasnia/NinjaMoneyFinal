@@ -9,19 +9,13 @@ public class Data {
     private String id;
     private String date;
 
-    public Data()
-    {
-
-    }
-
-    public Data(int amount, String title,  String date, String note) {
+    public Data(int amount, String date, String note, String title) {
         this.amount = amount;
-
-        this.title = title;
-        //this.source=source;
-
         this.date = date;
         this.note=note;
+        this.title = title;
+
+
     }
 
     public int getAmount() {
@@ -40,13 +34,7 @@ public class Data {
         this.title = title;
     }
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getDate() {
         return date;
@@ -62,5 +50,18 @@ public class Data {
 
     public void setNote(String note) {
         this.note = note;
+    }
+
+    @Override
+    public String toString() {
+        return "Data{" +
+                "amount=" + amount +
+                ", category='" + category + '\'' +
+                ", title='" + title + '\'' +
+                ", source='" + source + '\'' +
+                ", note='" + note + '\'' +
+                ", id='" + id + '\'' +
+                ", date='" + date + '\'' +
+                '}';
     }
 }
