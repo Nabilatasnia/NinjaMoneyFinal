@@ -88,7 +88,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return true;
         }
     }
-
     private boolean checkIfValidPassword() {
         String password = password_til.getEditText().getText().toString().trim();
         String checkSpace = "\\A\\w{1,20}\\z";
@@ -107,30 +106,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return true;
         }
     }
-
-//    private void userProfile(){
-//        String email = email_til.getEditText().getText().toString().trim();
-//        DatabaseReference dRef = FirebaseDatabase.getInstance().getReference("Users");
-//        Query checkUser = dRef.orderByChild("email").equalTo(email);
-//
-//        checkUser.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                if(snapshot.exists()){
-//                    String usernameFromDB = snapshot.child(email).child("username").getValue(String.class);
-//                    Toast.makeText(Login.this, usernameFromDB, Toast.LENGTH_SHORT).show();
-//                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-//
-//                    intent.putExtra("username", usernameFromDB);
-//                    startActivity(intent);
-//                }
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//    }
     @Override
     public void onClick(View v) {
         open(v);
@@ -153,20 +128,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-//                            FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                    GlobalVar.currentUser = snapshot.getValue(User.class);
-//                                }
-//
-//                                @Override
-//                                public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                }
-//                            });
-//                            database = FirebaseDatabase.getInstance();
-//                            mUser = firebaseAuth.getCurrentUser();
-//                            String uid = mUser.getUid();
                             Toast.makeText(Login.this, "Login Successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);

@@ -64,6 +64,7 @@ recyclerAdapter adapter;
         checkIncome.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
+                data.clear();
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     Data dataobj ;

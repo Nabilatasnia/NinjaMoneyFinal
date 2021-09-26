@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:title="Menu">
+            <menu>
+                <item
+                    android:id="@+id/nav_home"
+                    android:icon="@drawable/home_icon"
+                    android:title="Home" />
+                <item
+                    android:id="@+id/nav_income"
+                    android:icon="@drawable/income"
+                    android:title="Income" />
+                <item
+                    android:id="@+id/nav_expense"
+                    android:icon="@drawable/expense"
+                    android:title="Expense" />
+                <item
+                    android:id="@+id/nav_budget"
+                    android:icon="@drawable/budget"
+                    android:title="Budget" />
+                <item
+                    android:id="@+id/nav_balance"
+                    android:icon="@drawable/moneystatus"
+                    android:title="Balance" />
+                <item
+                    android:id="@+id/nav_report"
+                    android:icon="@drawable/report"
+                    android:title="Report" />
+                <item
+                    android:id="@+id/nav_donate"
+                    android:icon="@drawable/donate"
+                    android:title="Donate" />
+            </menu>
+        </item>
+    </group>
+    <group android:checkableBehavior="single">
+        <item android:title="Profile">
+            <menu>
+                <item
+                    android:id="@+id/nav_profile"
+                    android:icon="@drawable/username_icon"
+                    android:title="Account" />
+                <item
+                    android:id="@+id/nav_logout"
+                    android:icon="@drawable/logout_icon"
+                    android:title="Logout" />
+            </menu>
+        </item>
+
+    </group>
+</menu>
