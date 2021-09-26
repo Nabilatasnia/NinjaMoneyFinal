@@ -20,6 +20,8 @@
         app:headerLayout="@layout/header"
         app:menu="@menu/main_menu" />
 
+
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,11 +30,11 @@
         tools:context=".MainActivity">
 
         <include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />
-
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
         <TextView
             android:id="@+id/text1"
+            android:layout_below="@+id/toolbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:height="50dp"
@@ -60,7 +62,7 @@
             android:layout_below="@id/text2"
             android:layout_centerInParent="true"
 
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/solidbg"
             android:gravity="center"
             android:paddingStart="100dp">
@@ -97,7 +99,7 @@
             android:layout_height="500dp"
             android:layout_below="@+id/text4"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:orientation="vertical"
             android:paddingLeft="50dp"
             android:paddingTop="60dp">
@@ -156,7 +158,7 @@
             android:layout_below="@+id/text4"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_marginRight="-2dp"
             android:layout_marginBottom="0dp"
 
