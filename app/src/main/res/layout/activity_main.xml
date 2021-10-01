@@ -20,8 +20,6 @@
         app:headerLayout="@layout/header"
         app:menu="@menu/main_menu" />
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -32,6 +30,7 @@
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
+
         <TextView
             android:id="@+id/text1"
             android:layout_below="@+id/toolbar"

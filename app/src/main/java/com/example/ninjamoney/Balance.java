@@ -15,7 +15,7 @@ import com.example.ninjamoney.LoginSignUp.Profile;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
-public class Donate extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Balance extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -24,7 +24,7 @@ public class Donate extends AppCompatActivity implements NavigationView.OnNaviga
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_donate);
+        setContentView(R.layout.activity_balance);
         setup();
         drawer();
     }
@@ -43,7 +43,7 @@ public class Donate extends AppCompatActivity implements NavigationView.OnNaviga
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_donate);
+        navigationView.setCheckedItem(R.id.nav_balance);
     }
 
     @Override
@@ -51,9 +51,8 @@ public class Donate extends AppCompatActivity implements NavigationView.OnNaviga
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            /*Intent intentHome = new Intent(this, MainActivity.class);
-            startActivity(intentHome);*/
-            super.onBackPressed();
+            Intent intentHome = new Intent(this, MainActivity.class);
+            startActivity(intentHome);
         }
     }
 
@@ -72,16 +71,16 @@ public class Donate extends AppCompatActivity implements NavigationView.OnNaviga
                 Intent intentBud = new Intent(this, Expense.class);
                 startActivity(intentBud);
                 break;
-            case R.id.nav_balance:
-                Intent intentStat = new Intent(this, Balance.class);
+            case R.id.nav_budget:
+                Intent intentStat = new Intent(this, Budget.class);
                 startActivity(intentStat);
                 break;
             case R.id.nav_report:
                 Intent intentRep = new Intent(this, Report.class);
                 startActivity(intentRep);
                 break;
-            case R.id.nav_budget:
-                Intent intentDon = new Intent(this, Budget.class);
+            case R.id.nav_donate:
+                Intent intentDon = new Intent(this, Donate.class);
                 startActivity(intentDon);
                 break;
             case R.id.nav_profile:

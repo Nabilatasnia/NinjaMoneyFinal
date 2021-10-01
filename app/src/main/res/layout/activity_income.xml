@@ -1,93 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Income">
+    android:layout_height="match_parent">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:openDrawer="start" />
 
-    <LinearLayout
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        app:headerLayout="@layout/header"
+        app:menu="@menu/main_menu" />
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        android:orientation="vertical"
-        android:background="#FFF1F3FC"
-       >
+        android:background="@drawable/menubg"
+        tools:context=".Income">
 
-        <androidx.cardview.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:cardElevation="5dp"
-            android:elevation="10dp"
-            android:backgroundTint="@color/teal_700">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                >
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar" />
 
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center"
-                    android:layout_margin="10dp"
-
-                    android:layout_height="wrap_content">
-                    <TextView
-                        android:id="@+id/incometext"
-                        android:layout_height="wrap_content"
-                        android:layout_width="wrap_content"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="@color/white"
-                        android:text="Income"
-                        android:textStyle="bold"
-                        />
-
-                </RelativeLayout>
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="3"
-                    android:gravity="center"
-                    android:layout_margin="10dp"
-
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/income_txt_result"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="000000.00"
-                        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                        android:textColor="#F0F3F0"
-                        android:textStyle="bold" />
-
-                </RelativeLayout>
-            </LinearLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.recyclerview.widget.RecyclerView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/recycler_id_income">
 
-        </androidx.recyclerview.widget.RecyclerView>
-    </LinearLayout>
+            android:background="#FFF1F3FC"
+            android:orientation="vertical">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/add"
-        android:layout_width="150dp"
-        android:layout_height="158dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginRight="34dp"
-        android:layout_marginBottom="47dp"
-        android:background="#FAFAFA"
-        android:scaleType="center"
-        android:src="@drawable/add"
-        app:backgroundTint="#008081"
-        app:fabSize="auto"
-        app:rippleColor="#F3F0F0" />
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="@color/teal_200"
+                android:elevation="10dp"
+                app:cardElevation="5dp">
 
-</RelativeLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/incometext"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="50dp"
+                            android:text="Income"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="3"
+
+                        android:gravity="center">
+
+                        <TextView
+                            android:id="@+id/income_txt_result"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="000000.00"
+                            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                            android:textColor="#F0F3F0"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_id_income"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/add"
+            android:layout_width="150dp"
+            android:layout_height="158dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="34dp"
+            android:layout_marginBottom="47dp"
+            android:background="#FAFAFA"
+            android:scaleType="center"
+            android:src="@drawable/add"
+            app:backgroundTint="#008081"
+            app:fabSize="auto"
+            app:rippleColor="#F3F0F0" />
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

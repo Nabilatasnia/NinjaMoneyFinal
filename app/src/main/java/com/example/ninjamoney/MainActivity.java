@@ -1,6 +1,5 @@
 package com.example.ninjamoney;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -9,6 +8,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -46,6 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
+    boolean isPressed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +136,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+            if (isPressed) {
+                finish();
+                moveTaskToBack(true);
+
+            } else {
+                Toast.makeText(this, "Press again to close app", Toast.LENGTH_SHORT).show();
+                isPressed = true;
+            }
+            Runnable runnable = new Runnable() {
+                @Override
+                public void run() {
+                    isPressed = false;
+                }
+            };
+            new Handler().postDelayed(runnable, 2000);
         }
     }
 
@@ -158,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentBud);
                 break;
             case R.id.status:
-                Intent intentStat = new Intent(this, Status.class);
+                Intent intentStat = new Intent(this, Balance.class);
                 startActivity(intentStat);
                 break;
             case R.id.report:
@@ -189,7 +205,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentBud);
                 break;
             case R.id.nav_balance:
-                Intent intentStat = new Intent(this, Status.class);
+                Intent intentStat = new Intent(this, Balance.class);
                 startActivity(intentStat);
                 break;
             case R.id.nav_report:
