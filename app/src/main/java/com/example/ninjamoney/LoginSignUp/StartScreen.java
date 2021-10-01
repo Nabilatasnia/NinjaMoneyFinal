@@ -2,14 +2,11 @@ package com.example.ninjamoney.LoginSignUp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.ninjamoney.Input;
 import com.example.ninjamoney.MainActivity;
 import com.example.ninjamoney.R;
 import com.google.firebase.auth.FirebaseAuth;

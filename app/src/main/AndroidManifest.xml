@@ -14,7 +14,6 @@
         <activity android:name=".LoginSignUp.Profile"></activity>
         <activity android:name=".LoginSignUp.StartScreen" />
         <activity android:name=".Username" />
-        <activity android:name=".Input_expense" />
         <activity android:name=".LoadingMenu">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Input" />
         <activity android:name=".ResetPassword" />
         <activity android:name=".LoginSignUp.Signup" />
         <activity android:name=".LoginSignUp.Login" />

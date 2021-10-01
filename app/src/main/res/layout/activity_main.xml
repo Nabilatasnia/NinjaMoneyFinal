@@ -193,7 +193,6 @@
                 app:cornerRadius="10dp"
                 app:iconPadding="10dp" />
 
-
             <Button
                 android:id="@+id/donate"
                 android:layout_width="120dp"
@@ -204,12 +203,10 @@
                 android:text="Donate"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-
                 app:backgroundTint="#64C6BE"
                 app:cornerRadius="10dp"
                 app:iconPadding="10dp" />
 
         </LinearLayout>
-
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

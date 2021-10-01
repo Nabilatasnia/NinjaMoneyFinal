@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    tools:context=".Input">
+   >
 
 <LinearLayout
 android:layout_width="match_parent"
@@ -92,6 +92,7 @@ android:orientation="horizontal"
         android:id="@+id/account_spinner"
         android:layout_width="match_parent"
         android:layout_height="40dp"
+
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:entries="@array/account">
@@ -138,26 +139,25 @@ android:orientation="horizontal"
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:textColor="@color/black"
             android:text="Date:"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
             android:layout_marginLeft="20dp"
             />
 
 
-        <EditText
+        <Button
+            android:id="@+id/datepicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/date"
-            android:hint="Add amount"
-            android:textColor="@color/black"
-            android:inputType="number"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-
-            />
-
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:text="Select Date"
+            android:backgroundTint="@color/white"
+            style="?android:spinnerItemStyle"
+            android:onClick="DatePicker"
+        />
 
     </LinearLayout>
     <LinearLayout

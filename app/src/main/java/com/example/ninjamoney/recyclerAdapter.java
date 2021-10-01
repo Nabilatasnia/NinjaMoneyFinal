@@ -1,15 +1,12 @@
 package com.example.ninjamoney;
-
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import java.util.ArrayList;
 
 public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.IncomeViewHolder>{
@@ -24,7 +21,6 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.Income
         IncomeViewHolder holder =new IncomeViewHolder(view);
         return holder;
     }
-
 
     @Override
     public void onBindViewHolder(recyclerAdapter.IncomeViewHolder holder, int position) {
@@ -46,13 +42,10 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.Income
         TextView mTitle,mNote,mDate,mAmount;
         public IncomeViewHolder(View itemView) {
             super(itemView);
-
             mTitle=itemView.findViewById(R.id.type_txt_income);
             mNote=itemView.findViewById(R.id.note_txt_income);
             mDate=itemView.findViewById(R.id.date_txt_income);
             mAmount=itemView.findViewById(R.id.amount_txt_income);
-
         }
-
     }
 }
