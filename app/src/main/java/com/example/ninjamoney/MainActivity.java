@@ -139,7 +139,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             if (isPressed) {
                 finish();
                 moveTaskToBack(true);
-
             } else {
                 Toast.makeText(this, "Press again to close app", Toast.LENGTH_SHORT).show();
                 isPressed = true;

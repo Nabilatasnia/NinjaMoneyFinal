@@ -42,7 +42,7 @@ public class Report extends AppCompatActivity implements NavigationView.OnNaviga
         toggle.syncState();
 
         navigationView.setNavigationItemSelectedListener(this);
-        navigationView.setCheckedItem(R.id.nav_budget);
+        navigationView.setCheckedItem(R.id.nav_report);
     }
 
     @Override
@@ -74,8 +74,8 @@ public class Report extends AppCompatActivity implements NavigationView.OnNaviga
                 Intent intentStat = new Intent(this, Balance.class);
                 startActivity(intentStat);
                 break;
-            case R.id.nav_report:
-                Intent intentRep = new Intent(this, Report.class);
+            case R.id.nav_budget:
+                Intent intentRep = new Intent(this, Budget.class);
                 startActivity(intentRep);
                 break;
             case R.id.nav_donate:
