@@ -111,6 +111,7 @@
             android:background="#FAFAFA"
             android:scaleType="center"
             android:src="@drawable/add"
+
             app:backgroundTint="#008081"
             app:fabSize="auto"
             app:rippleColor="#F3F0F0" />

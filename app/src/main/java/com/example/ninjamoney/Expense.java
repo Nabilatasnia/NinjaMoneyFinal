@@ -1,5 +1,6 @@
 package com.example.ninjamoney;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,14 +10,20 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ninjamoney.LoginSignUp.Login;
@@ -26,132 +33,300 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Expense extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private FloatingActionButton fab_expense_btn;
     private FirebaseAuth mAuth;
-    private LinearLayoutManager layoutManager;
     private DatabaseReference mExpenseDatabase;
     private RecyclerView recyclerView;
-    private FirebaseRecyclerAdapter adapter;
-
+    private Button datebutton;
+    DatePickerDialog datePickerDialog;
+    private Spinner from_spinner;
+    private Spinner category_spinner;
+    expenseRecyclerAdapter adapter;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-
+    int monthtotalexpense,totalexpense;
+    private TextView totalexpense_text;
+    int food,clothing,living,education,treatment,investment,other;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_expense);
-        /*ArrayList<Data> hospitals = new ArrayList<>();
-        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
-        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
-        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
-        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
-        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
-        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
-        hospitals.add(new Data(99, "9/9/99","ddd","sfsfs"));
-        recyclerAdapter adapter = new recyclerAdapter(this);
-        adapter.setHospitals(hospitals);
-        recyclerView=findViewById(R.id.recycler_id_expense);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));*/
         setup();
+        Load();
         drawer();
     }
 
     private void setup() {
         fab_expense_btn = findViewById(R.id.add);
         fab_expense_btn.setOnClickListener(this);
-        recyclerView = findViewById(R.id.recycler_id_expense);
-        layoutManager = new LinearLayoutManager(this);
-        layoutManager.setReverseLayout(true);
-        layoutManager.setStackFromEnd(true);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(layoutManager);
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
-
+        totalexpense_text=findViewById(R.id.expense_txt_result);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
     }
+    private String getTodaysDate() {
+        Calendar cal=Calendar.getInstance();
+        int year=cal.get(Calendar.YEAR);
+        int month=cal.get(Calendar.MONTH);
+        month=month+1;
+        int day=cal.get(Calendar.DAY_OF_MONTH);
+        return makeDateString(day,month,year);
+    }
 
+    private String makeDateString(int day, int month, int year) {
+        return getMonthFormat(month)+" "+day+" "+year; //OCT 1 2021
+    }
+
+    private String getMonthFormat(int month) {
+        switch (month) {
+            case 1:
+                return "JAN";
+            case 2:
+                return "FEB";
+            case 3:
+                return "MAR";
+            case 4:
+                return "APR";
+            case 5:
+                return "MAY";
+            case 6:
+                return "JUN";
+            case 7:
+                return "JUL";
+            case 8:
+                return "AUG";
+            case 9:
+                return "SEP";
+            case 10:
+                return "OCT";
+            case 11:
+                return "NOV";
+            case 12:
+                return "DEC";
+        }
+        return "JAN";
+    }
+    private void Load()
+    {
+        recyclerView=findViewById(R.id.recycler_id_expense);
+
+        ArrayList<DataExpense> data=new ArrayList<>();
+        adapter= new expenseRecyclerAdapter();
+        FirebaseDatabase db=FirebaseDatabase.getInstance();
+        mAuth=FirebaseAuth.getInstance();
+        FirebaseUser muser = mAuth.getCurrentUser();
+        String uid = muser.getUid();
+        DatabaseReference dref = db.getReference().child("ExpenseData").child(uid);
+        Query checkIncome = dref.orderByChild("date");
+        checkIncome.addValueEventListener(new ValueEventListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                data.clear();
+                monthtotalexpense=0;food=0;clothing=0;living=0;education=0;treatment=0;investment=0;other=0;
+                for(DataSnapshot dataSnapshot : snapshot.getChildren())
+                {
+                    LocalDate currentdate = LocalDate.now();
+                    Month currentMonth = currentdate.getMonth(); //OCTOBER
+                    //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
+
+                    //jodi recussing thake add korbe
+                    DataExpense dataobj ;
+                    int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+                    String from=dataSnapshot.child("from").getValue().toString();
+                    String date=dataSnapshot.child("date").getValue().toString();
+                    String category=dataSnapshot.child("category").getValue().toString();
+                    String title=dataSnapshot.child("title").getValue().toString();
+                    String note=dataSnapshot.child("note").getValue().toString();
+                    if(category=="Food")
+                    {
+                        food+=amount;
+                    }
+                    else if(category=="Clothing")
+                    {
+                        clothing+=amount;
+                    }
+                    else if(category=="Living")
+                    {
+                        living+=amount;
+                    }
+                    else if(category=="Education")
+                    {
+                        education+=amount;
+                    }
+                    else if(category=="Treatment")
+                    {
+                        treatment+=amount;
+                    }
+                    else if(category=="Investment")
+                    {
+                        investment+=amount;
+                    }
+                    else
+                    {
+                        other+=amount;
+                    }
+                    //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
+                    dataobj=new DataExpense(amount,category,from,date,title,note);
+                    if(String.valueOf(currentMonth).startsWith(date.substring(0,2)))
+                    {
+                        monthtotalexpense+=amount;
+                        Toast.makeText(Expense.this,String.valueOf(totalexpense), Toast.LENGTH_SHORT).show();
+                        data.add(dataobj);
+                    }
+                }
+                adapter.notifyDataSetChanged();
+                totalexpense_text.setText(String.valueOf(totalexpense));
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
+        totalexpense=food+clothing+living+education+treatment+investment+other;
+        adapter.setData(data);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
     @Override
     public void onClick(View v) {
         open(v);
     }
 
     private void open(View v) {
-
         AlertDialog.Builder mydialog = new AlertDialog.Builder(Expense.this);
         LayoutInflater inflater = LayoutInflater.from(Expense.this);
         View myview = inflater.inflate(R.layout.activity_input_expense, null);
         mydialog.setView(myview);
         final AlertDialog dialog = mydialog.create();
         dialog.setCancelable(false);
-        final EditText edtAmount = myview.findViewById(R.id.amount);
-        final EditText edtTitle = myview.findViewById(R.id.title);
-        final EditText edtFrom = myview.findViewById(R.id.source);
-        final EditText edtNote = myview.findViewById(R.id.note);
+
+        final EditText edtAmount = myview.findViewById(R.id.expense_amount);
+        final EditText edtTitle = myview.findViewById(R.id.expense_title);
+        final EditText edtNote = myview.findViewById(R.id.expense_note);
+        // initDatePicker();
+
+        from_spinner=myview.findViewById(R.id.from_spinner);
+        category_spinner=myview.findViewById(R.id.category_spinner);
+        final String[] from = new String[1];
+        from[0]="Bank";
+        final String[] category=new String[1];
+        category[0]="Other";
+        category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                category[0]=parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), category[0], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
+            }
+        });
+        from_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                from[0]=parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), from[0], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
+            }
+        });
+        final String[] date = new String[1];
+        date[0] =getTodaysDate();
+        DatePickerDialog.OnDateSetListener datesetListener=new DatePickerDialog.OnDateSetListener()
+        {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int day) {
+                month=month+1;
+                date[0] =makeDateString(day,month,year);
+                datebutton.setText(date[0]);
+            }
+        };
+        Calendar cal=Calendar.getInstance();
+        int year=cal.get(Calendar.YEAR);
+        int month=cal.get(Calendar.MONTH);
+        int day=cal.get(Calendar.DAY_OF_MONTH);
+        int style= android.app.AlertDialog.THEME_HOLO_LIGHT;
+        datePickerDialog=new DatePickerDialog(this,style,datesetListener,year,month,day);
+        datebutton=myview.findViewById(R.id.datepicker);
+        datebutton.setText(getTodaysDate());
+
 
 
         Button btnSave = myview.findViewById(R.id.button_save);
         Button btnCancel = myview.findViewById(R.id.button_cancel);
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
+        datebutton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String title = edtTitle.getText().toString().trim();
-                String amount = edtAmount.getText().toString().trim();
-                //String source=edtSource.getText().toString().trim();
-                String note = edtNote.getText().toString().trim();
-
-                if (TextUtils.isEmpty(title)) {
-                    edtTitle.setError("Required Field..");
-                    return;
-                }
-
-                if (TextUtils.isEmpty(amount)) {
-                    edtAmount.setError("Required Field..");
-                    return;
-                }
-
-                int amountint = Integer.parseInt(amount);
-
-                if (TextUtils.isEmpty(note)) {
-                    edtNote.setError("Required Field..");
-                    return;
-                }
-
-                String id = mExpenseDatabase.push().getKey();
-                String mDate = DateFormat.getDateInstance().format(new Date());
-
-                Data data = new Data(amountint, mDate, note, title);
-                mExpenseDatabase.child(id).setValue(data);
-
-                Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
-
-
-                dialog.dismiss();
+                datePickerDialog.show();
             }
         });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
+
+
+        btnSave.setOnClickListener(v1 -> {
+            String title = edtTitle.getText().toString().trim();
+            String amount = edtAmount.getText().toString().trim();
+            String note = edtNote.getText().toString().trim();
+
+            if (TextUtils.isEmpty(title)) {
+                edtTitle.setError("Required Field..");
+                return;
             }
+
+            if (TextUtils.isEmpty(amount)) {
+                edtAmount.setError("Required Field..");
+                return;
+            }
+
+            int amountint = Integer.parseInt(amount);
+
+            if (TextUtils.isEmpty(note)) {
+                edtNote.setError("Required Field..");
+                return;
+            }
+
+
+            String id = mExpenseDatabase.push().getKey();
+            //String mDate = DateFormat.getDateInstance().format(new Date());
+
+            DataExpense data=new DataExpense(amountint,category[0],from[0],date[0] , title,note);
+
+            mExpenseDatabase.child(id).setValue(data);
+
+            Toast.makeText(Expense.this,"Data ADDED", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
         });
+        btnCancel.setOnClickListener(v12 -> dialog.dismiss());
         dialog.show();
-
     }
+
 
     private void drawer() {
         setSupportActionBar(toolbar);

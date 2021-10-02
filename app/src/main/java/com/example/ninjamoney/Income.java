@@ -7,9 +7,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
@@ -42,15 +45,17 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Income extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class Income extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private FloatingActionButton fab_income_btn;
 private FirebaseAuth mAuth;
 private DatabaseReference mIncomeDatabase;
 private DatePickerDialog datePickerDialog;
 private Button datebutton;
 private RecyclerView recyclerView;
+private Spinner spinner;
+TextView totalincome;
 recyclerAdapter adapter;
-
+int cashtotal,banktotal,bkashtotal,total,monthtotal;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -72,7 +77,7 @@ recyclerAdapter adapter;
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-
+        totalincome=findViewById(R.id.income_txt_result);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -139,25 +144,43 @@ recyclerAdapter adapter;
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 data.clear();
+                monthtotal=0;banktotal=0;cashtotal=0;bkashtotal=0;
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     LocalDate currentdate = LocalDate.now();
                     Month currentMonth = currentdate.getMonth(); //OCTOBER
-                    Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
+                  //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
 
                     //jodi recussing thake add korbe
                     Data dataobj ;
                     int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+                    String account=dataSnapshot.child("account").getValue().toString();
                     String date=dataSnapshot.child("date").getValue().toString(); //3 OCT 2021
                     String title=dataSnapshot.child("title").getValue().toString();
                     String note=dataSnapshot.child("note").getValue().toString();
-                     //OCTOBER
+                    if(account=="Bank")
+                    {
+                        banktotal+=amount;
+                    }
+                    else if(account=="Cash")
+                    {
+                        cashtotal+=amount;
+                    }
+                    else
+                    {
+                        bkashtotal+=amount;
+                    }
                      //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
-                    dataobj=new Data(amount,date,note,title);
+                    dataobj=new Data(amount,account,date,note,title);
                     if(String.valueOf(currentMonth).startsWith(date.substring(0,2)))
-                    data.add(dataobj);
+                    {
+                        monthtotal+=amount;
+                        Toast.makeText(Income.this,String.valueOf(monthtotal), Toast.LENGTH_SHORT).show();
+                        data.add(dataobj);
+                    }
                 }
                 adapter.notifyDataSetChanged();
+                totalincome.setText(String.valueOf(monthtotal));
             }
 
             @Override
@@ -165,11 +188,8 @@ recyclerAdapter adapter;
 
             }
         });
-        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
-        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
-        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
-        //data.add(new Data(100,"19 sep 2020","sdcnfoaw","iwdbw"));
 
+        total=banktotal+bkashtotal+cashtotal;
 
         adapter.setData(data);
         recyclerView.setAdapter(adapter);
@@ -193,6 +213,23 @@ recyclerAdapter adapter;
         final EditText edtTitle = myview.findViewById(R.id.title);
         final EditText edtNote = myview.findViewById(R.id.note);
        // initDatePicker();
+
+        spinner=myview.findViewById(R.id.account_spinner);
+        final String[] account = new String[1];
+        account[0]="Bank";
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                account[0]=parent.getItemAtPosition(position).toString();
+                Toast.makeText(parent.getContext(), account[0], Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+                // sometimes you need nothing here
+            }
+        });
         final String[] date = new String[1];
         date[0] =getTodaysDate();
         DatePickerDialog.OnDateSetListener datesetListener=new DatePickerDialog.OnDateSetListener()
@@ -249,14 +286,13 @@ recyclerAdapter adapter;
 
 
             String id = mIncomeDatabase.push().getKey();
-            //String mDate = DateFormat.getDateInstance().format(new Date());
 
-            Data data=new Data(amountint,date[0] ,  note, title);
+            Data data=new Data(amountint,account[0],date[0] ,  note, title);
 
             mIncomeDatabase.child(id).setValue(data);
 
             Toast.makeText(Income.this,"Data ADDED", Toast.LENGTH_SHORT).show();
-            Toast.makeText(Income.this, "Data ADDED", Toast.LENGTH_SHORT).show();
+
             // Load();
 
             dialog.dismiss();
@@ -326,6 +362,7 @@ recyclerAdapter adapter;
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
 }
 
 

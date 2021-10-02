@@ -34,6 +34,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.Income
     public int getItemCount() {
         return data.size();
     }
+
     public void setData(ArrayList<Data> data) {
         this.data = data;
     }
@@ -43,6 +44,7 @@ public class recyclerAdapter extends RecyclerView.Adapter<recyclerAdapter.Income
         public IncomeViewHolder(View itemView) {
             super(itemView);
             mTitle=itemView.findViewById(R.id.type_txt_income);
+
             mNote=itemView.findViewById(R.id.note_txt_income);
             mDate=itemView.findViewById(R.id.date_txt_income);
             mAmount=itemView.findViewById(R.id.amount_txt_income);

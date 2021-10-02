@@ -15,11 +15,12 @@
 
     <string-array name="category_array">
         <item>Food</item>
-        <item>Clothes</item>
-        <item>Rent</item>
+        <item>Clothing</item>
+        <item>Living</item>
         <item>Education</item>
         <item>Treatment</item>
-        <item>Custom</item>
+        <item>Investment</item>
+        <item>Other</item>
     </string-array>
     <string-array name="account">
         <item>Bank</item>
