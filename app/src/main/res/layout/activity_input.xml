@@ -196,12 +196,5 @@ android:orientation="horizontal">
         app:backgroundTint="#64C6BE" />
 
 </RelativeLayout>
-
-
 </LinearLayout>
-
-
-
-
-
-    </LinearLayout>
+     </LinearLayout>

@@ -30,6 +30,7 @@ import com.example.ninjamoney.BalanceCalculation.Balance;
 import com.example.ninjamoney.BalanceCalculation.BalanceDataExpense;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,10 +42,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Expense extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private FloatingActionButton fab_expense_btn;
@@ -52,6 +55,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
     private DatabaseReference mExpenseDatabase;
     private FirebaseUser muser;
     private DatabaseReference dRef;
+    private DatabaseReference mCategoryDatabase;
     private RecyclerView recyclerView;
     private Button datebutton;
     DatePickerDialog datePickerDialog;
@@ -145,6 +149,8 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         DatabaseReference dref = db.getReference().child("ExpenseData").child(uid);
+        mAuth = FirebaseAuth.getInstance();
+        mCategoryDatabase = FirebaseDatabase.getInstance().getReference().child("CategoryData").child(uid);
         Query checkIncome = dref.orderByChild("date");
         checkIncome.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -166,15 +172,44 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     LocalDate currentdate = LocalDate.now();
                     Month currentMonth = currentdate.getMonth(); //OCTOBER
+                    //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
 
                     //jodi recussing thake add korbe
-                    DataExpense dataobj;
-                    int amount = Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
-                    String from = dataSnapshot.child("from").getValue().toString();
-                    String date = dataSnapshot.child("date").getValue().toString();
-                    String category = dataSnapshot.child("category").getValue().toString();
-                    String title = dataSnapshot.child("title").getValue().toString();
-                    String note = dataSnapshot.child("note").getValue().toString();
+                    DataExpense dataobj ;
+                    CategoryData categorydata;
+                    int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+                    String from=dataSnapshot.child("from").getValue().toString();
+                    String date=dataSnapshot.child("date").getValue().toString();
+                    String category=dataSnapshot.child("category").getValue().toString();
+                    String title=dataSnapshot.child("title").getValue().toString();
+                    String note=dataSnapshot.child("note").getValue().toString();
+                    if(category.equals("Food"))
+                    {
+                        food+=amount;
+                    }
+                    else if(category.equals("Clothing"))
+                    {
+                        clothing+=amount;
+                    }
+                    else if(category.equals("Living"))
+                    {
+                        living+=amount;
+                    }
+                    else if(category.equals("Education"))
+                    {
+                        education+=amount;
+                    }
+                    else if(category.equals("Treatment"))
+                    {
+                        treatment+=amount;
+                    }
+                    else if(category.equals("Investment"))
+                    {
+                        investment+=amount;
+                    }
+                    else {
+                        other += amount;
+                    }
                     if (from.equals("Bank")) {
                         banktotal += amount;
                     } else if (from.equals("Cash")) {
@@ -182,24 +217,18 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                     } else {
                         bkashtotal += amount;
                     }
-                    if (category.equals("Food")) {
-                        food += amount;
-                    } else if (category.equals("Clothing")) {
-                        clothing += amount;
-                    } else if (category.equals("Living")) {
-                        living += amount;
-                    } else if (category.equals("Education")) {
-                        education += amount;
-                    } else if (category.equals("Treatment")) {
-                        treatment += amount;
-                    } else if (category.equals("Investment")) {
-                        investment += amount;
-                    } else {
-                        other += amount;
-                    }
-                            dataobj = new DataExpense(amount, category, from, date, title, note);
-                    if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
-                        monthtotalexpense += amount;
+                    //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
+
+
+                    dataobj=new DataExpense(amount,category,from,date,title,note);
+                    if(String.valueOf(currentMonth).startsWith(date.substring(0,2)))
+                    {
+                        categorydata=new CategoryData(food,clothing,living,education,treatment,investment, other);
+                        //String id = mCategoryDatabase.push().getKey();
+                        mCategoryDatabase.setValue(categorydata);
+                        Toast.makeText(Expense.this,"Data ADDED", Toast.LENGTH_SHORT).show();
+                        monthtotalexpense+=amount;
+                        Toast.makeText(Expense.this,String.valueOf(totalexpense), Toast.LENGTH_SHORT).show();
                         data.add(dataobj);
                     }
                     total = bkashtotal + cashtotal + banktotal;
@@ -291,6 +320,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         datePickerDialog = new DatePickerDialog(this, style, datesetListener, year, month, day);
         datebutton = myview.findViewById(R.id.datepicker);
         datebutton.setText(getTodaysDate());
+
 
 
         Button btnSave = myview.findViewById(R.id.button_save);

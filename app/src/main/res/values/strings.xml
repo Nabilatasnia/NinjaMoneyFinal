@@ -24,7 +24,7 @@
     </string-array>
     <string-array name="account">
         <item>Bank</item>
-        <item>BKash</item>
+        <item>Mobile Banking</item>
         <item>Cash</item>
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->

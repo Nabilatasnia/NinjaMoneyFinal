@@ -40,16 +40,18 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class Income extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private FloatingActionButton fab_income_btn;
 private FirebaseAuth mAuth;
 private DatabaseReference mIncomeDatabase;
-private DatabaseReference dRefBalance;
+    private DatabaseReference dRefBalance;
 private DatePickerDialog datePickerDialog;
 private Button datebutton;
 private RecyclerView recyclerView;
@@ -187,7 +189,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
                     dRefBalance.child("incomeMobile").setValue(bkashtotal);
                 }
                 adapter.notifyDataSetChanged();
-                totalincome.setText(String.valueOf(monthtotal+ " ৳"));
+                totalincome.setText(String.valueOf(monthtotal));
             }
 
             @Override
@@ -213,6 +215,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
         mydialog.setView(myview);
         final AlertDialog dialog = mydialog.create();
         dialog.setCancelable(false);
+
         final EditText edtAmount = myview.findViewById(R.id.amount);
         final EditText edtTitle = myview.findViewById(R.id.title);
         final EditText edtNote = myview.findViewById(R.id.note);
