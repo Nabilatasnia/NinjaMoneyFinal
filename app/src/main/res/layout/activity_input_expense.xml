@@ -4,8 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    tools:context=".Input">
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,7 +25,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/amount"
+            android:id="@+id/expense_amount"
             android:hint="Add amount"
             android:textColor="@color/black"
             android:inputType="number"
@@ -45,7 +44,7 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:text="Category:"
             android:textSize="20dp"
             android:textColor="@color/black"
@@ -55,23 +54,19 @@
             />
 
         <Spinner
-            android:id="@+id/spinner"
-
+            android:id="@+id/category_spinner"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:spinnerMode="dropdown"
-
             android:entries="@array/category_array"
             >
         </Spinner>
-
-
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
-
 
         <TextView
             android:layout_width="wrap_content"
@@ -83,19 +78,16 @@
             android:layout_marginLeft="20dp"
             />
 
-
-
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/title"
+            android:id="@+id/expense_title"
             android:hint="Add title"
             android:textColor="@color/black"
             android:layout_marginLeft="35sp"
             android:layout_marginRight="10sp"
             android:inputType="text"
             />
-
 
     </LinearLayout>
     <LinearLayout
@@ -115,15 +107,14 @@
 
             />
 
-        <EditText
+        <Spinner
+            android:id="@+id/from_spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/source"
-            android:hint="Add source"
-            android:textColor="@color/black"
-            android:layout_marginLeft="10dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="35dp"
             android:layout_marginRight="10dp"
-            />
+            android:entries="@array/account">
+        </Spinner>
 
 
     </LinearLayout>
@@ -147,14 +138,43 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/note"
+            android:id="@+id/expense_note"
             android:hint="Add note"
             android:textColor="@color/black"
             android:layout_marginLeft="30dp"
             android:layout_marginRight="10dp"
             />
 
+    </LinearLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date:"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="20dp"
+            />
+
+
+        <Button
+            android:id="@+id/datepicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
+            android:text="Select Date"
+            android:backgroundTint="@color/white"
+            style="?android:spinnerItemStyle"
+            android:onClick="DatePicker"
+            />
     </LinearLayout>
 
     <LinearLayout

@@ -47,11 +47,11 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/note_txt_expense"
+                android:id="@+id/category_txt_expense"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/type_txt_expense"
-                android:text="Description"
+                android:text="Category"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                 android:textColor="@color/black"

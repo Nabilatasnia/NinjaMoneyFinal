@@ -2,20 +2,20 @@ package com.example.ninjamoney;
 
 public class Data {
     private int amount;
-    private String category;
-    private String title;
-    private String source;
-    private String note;
-    private String id;
-    private String date;
 
-    public Data(int amount, String date, String note, String title) {
+    private String title;
+
+    private String note;
+
+    private String date;
+    private String account;
+
+    public Data(int amount,String account, String date, String note, String title) {
         this.amount = amount;
+        this.account=account;
         this.date = date;
         this.note=note;
         this.title = title;
-
-
     }
 
     public int getAmount() {
@@ -34,7 +34,13 @@ public class Data {
         this.title = title;
     }
 
+    public String getAccount() {
+        return account;
+    }
 
+    public void setAccount(String account) {
+        this.account = account;
+    }
 
     public String getDate() {
         return date;
@@ -56,11 +62,11 @@ public class Data {
     public String toString() {
         return "Data{" +
                 "amount=" + amount +
-                ", category='" + category + '\'' +
+                ", account='" + account + '\'' +
                 ", title='" + title + '\'' +
-                ", source='" + source + '\'' +
+
                 ", note='" + note + '\'' +
-                ", id='" + id + '\'' +
+
                 ", date='" + date + '\'' +
                 '}';
     }
