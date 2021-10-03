@@ -47,15 +47,15 @@ import java.util.Date;
 
 public class Income extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private FloatingActionButton fab_income_btn;
-private FirebaseAuth mAuth;
-private DatabaseReference mIncomeDatabase;
-private DatePickerDialog datePickerDialog;
-private Button datebutton;
-private RecyclerView recyclerView;
-private Spinner spinner;
-TextView totalincome;
-recyclerAdapter adapter;
-int cashtotal,banktotal,bkashtotal,total,monthtotal;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mIncomeDatabase;
+    private DatePickerDialog datePickerDialog;
+    private Button datebutton;
+    private RecyclerView recyclerView;
+    private Spinner spinner;
+    TextView totalincome;
+    recyclerAdapter adapter;
+    int cashtotal,banktotal,bkashtotal,total,monthtotal;
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
@@ -209,6 +209,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
         mydialog.setView(myview);
         final AlertDialog dialog = mydialog.create();
         dialog.setCancelable(false);
+
         final EditText edtAmount = myview.findViewById(R.id.amount);
         final EditText edtTitle = myview.findViewById(R.id.title);
         final EditText edtNote = myview.findViewById(R.id.note);

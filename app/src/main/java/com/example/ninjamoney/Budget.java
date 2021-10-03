@@ -1,6 +1,8 @@
 package com.example.ninjamoney;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -8,18 +10,36 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
-public class Budget extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class Budget extends AppCompatActivity implements View.OnClickListener,NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mCategoryDatabase;
     Toolbar toolbar;
+    FloatingActionButton fab_budget_btn;
+    ProgressBar foodprog,livingprog,cloprog,eduprog,treatprog,investprog,otherprog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,9 +50,146 @@ public class Budget extends AppCompatActivity implements NavigationView.OnNaviga
     }
 
     private void setup() {
+        fab_budget_btn = findViewById(R.id.add);
+        fab_budget_btn.setOnClickListener(this);
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser muser = mAuth.getCurrentUser();
+        String uid = muser.getUid();
+        mCategoryDatabase = FirebaseDatabase.getInstance().getReference().child("CategoryData").child(uid);
+        foodprog=findViewById(R.id.food_progressbar);
+        livingprog=findViewById(R.id.living_progressbar);
+        cloprog=findViewById(R.id.clothing_progressbar);
+        eduprog=findViewById(R.id.education_progressbar);
+        treatprog=findViewById(R.id.treatment_progressbar);
+        investprog=findViewById(R.id.investment_progressbar);
+        otherprog=findViewById(R.id.other_progressbar);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+    }
+    @Override
+    public void onClick(View v) {
+        open(v);
+    }
+
+    private void open(View v) {
+        AlertDialog.Builder mydialog = new AlertDialog.Builder(Budget.this);
+        LayoutInflater inflater = LayoutInflater.from(Budget.this);
+        View myview = inflater.inflate(R.layout.budget_input, null);
+        mydialog.setView(myview);
+        final AlertDialog dialog = mydialog.create();
+        dialog.setCancelable(false);
+        final EditText food_budget = myview.findViewById(R.id.food_budget);
+        final EditText clothing_budget = myview.findViewById(R.id.clothing_budget);
+        final EditText living_budget = myview.findViewById(R.id.living_budget);
+        final EditText education_budget = myview.findViewById(R.id.education_budget);
+        final EditText treatment_budget = myview.findViewById(R.id.treatment_budget);
+        final EditText investment_budget = myview.findViewById(R.id.investment_budget);
+        final EditText other_budget = myview.findViewById(R.id.other_budget);
+        Button btnSave = myview.findViewById(R.id.button_save);
+        Button btnCancel = myview.findViewById(R.id.button_cancel);
+        final int[] foodint = new int[1];
+        final int[] clothingint = new int[1];
+        final int[] livingint = new int[1];
+        final int[] educationint = new int[1];
+        final int[] treatmentint = new int[1];
+        final int[] investmentint = new int[1];
+        final int[] otherint = new int[1];
+
+
+
+        btnSave.setOnClickListener(v1 -> {
+            String food = food_budget.getText().toString().trim();
+            String clothing = clothing_budget.getText().toString().trim();
+            String living = living_budget.getText().toString().trim();
+            String education = education_budget.getText().toString().trim();
+            String treatment= treatment_budget.getText().toString().trim();
+            String investment = investment_budget.getText().toString().trim();
+            String other = other_budget.getText().toString().trim();
+
+            if (TextUtils.isEmpty(food))
+                foodint[0]=0;
+            else
+                foodint[0] =Integer.parseInt(food);
+
+            if (TextUtils.isEmpty(clothing))
+                clothingint[0]=0;
+            else
+                clothingint[0] =Integer.parseInt(clothing);
+
+            if (TextUtils.isEmpty(living))
+                livingint[0]=0;
+            else
+                livingint[0] =Integer.parseInt(living);
+
+            if (TextUtils.isEmpty(education))
+                educationint[0]=0;
+            else
+                educationint[0] =Integer.parseInt(education);
+
+            if (TextUtils.isEmpty(treatment))
+                treatmentint[0]=0;
+            else
+                treatmentint[0] =Integer.parseInt(treatment);
+
+            if (TextUtils.isEmpty(investment))
+                investmentint[0]=0;
+            else
+                investmentint[0] =Integer.parseInt(investment);
+
+            if (TextUtils.isEmpty(other))
+                otherint[0]=0;
+            else
+                otherint[0] =Integer.parseInt(other);
+            foodprog.setMax(foodint[0]);
+
+            livingprog.setMax(livingint[0]);
+
+            cloprog.setMax(clothingint[0]);
+
+            eduprog.setMax(educationint[0]);
+
+            treatprog.setMax(treatmentint[0]);
+
+            investprog.setMax(investmentint[0]);
+
+            otherprog.setMax(otherint[0]);
+
+            mCategoryDatabase.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot snapshot) {
+                    if(snapshot.exists())
+                    {
+                        int foodspent=Integer.parseInt(snapshot.child("food").getValue().toString().trim());
+                        int livingspent=Integer.parseInt(snapshot.child("living").getValue().toString().trim());
+                        int clothingspent=Integer.parseInt(snapshot.child("clothing").getValue().toString().trim());
+                        int educationspent=Integer.parseInt(snapshot.child("education").getValue().toString().trim());
+                        int treatmentspent=Integer.parseInt(snapshot.child("treatment").getValue().toString().trim());
+                        int investmentspent=Integer.parseInt(snapshot.child("investment").getValue().toString().trim());
+                        int otherspent=Integer.parseInt(snapshot.child("other").getValue().toString().trim());
+                        foodprog.setProgress(foodspent);
+                        livingprog.setProgress(livingspent);
+                        cloprog.setProgress(clothingspent);
+                        treatprog.setProgress(treatmentspent);
+                        investprog.setProgress(investmentspent);
+                        eduprog.setProgress(educationspent);
+                        otherprog.setProgress(otherspent);
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError error) {
+
+                }
+            });
+
+
+
+            //Toast.makeText(Budget.this,"Data ADDED", Toast.LENGTH_SHORT).show();
+            dialog.dismiss();
+        });
+        btnCancel.setOnClickListener(v12 -> dialog.dismiss());
+        dialog.show();
     }
 
     private void drawer() {
@@ -96,4 +253,6 @@ public class Budget extends AppCompatActivity implements NavigationView.OnNaviga
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
 }
