@@ -1,4 +1,5 @@
 package com.example.ninjamoney;
+
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Build;
@@ -51,7 +52,7 @@ public class Income extends AppCompatActivity implements View.OnClickListener, N
     private FloatingActionButton fab_income_btn;
 private FirebaseAuth mAuth;
 private DatabaseReference mIncomeDatabase;
-    private DatabaseReference dRefBalance;
+private DatabaseReference dRefBalance;
 private DatePickerDialog datePickerDialog;
 private Button datebutton;
 private RecyclerView recyclerView;
@@ -65,7 +66,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
     Toolbar toolbar;
 
     @Override
-  protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_income);
         setup();
@@ -80,7 +81,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
-        totalincome=findViewById(R.id.income_txt_result);
+        totalincome = findViewById(R.id.income_txt_result);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -89,12 +90,12 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
     }
 
     private String getTodaysDate() {
-        Calendar cal=Calendar.getInstance();
-        int year=cal.get(Calendar.YEAR);
-        int month=cal.get(Calendar.MONTH);
-        month=month+1;
-        int day=cal.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day,month,year);
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return makeDateString(day, month, year);
     }
 
     private String makeDateString(int day, int month, int year) {
@@ -156,40 +157,34 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
                   //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
 
                     //jodi recussing thake add korbe
-                    Data dataobj ;
-                    int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
-                    String account=dataSnapshot.child("account").getValue().toString();
-                    String date=dataSnapshot.child("date").getValue().toString(); //3 OCT 2021
-                    String title=dataSnapshot.child("title").getValue().toString();
-                    String note=dataSnapshot.child("note").getValue().toString();
-                    if(account.equals("Bank"))
-                    {
-                        banktotal+=amount;
+                    Data dataobj;
+                    int amount = Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+                    String account = dataSnapshot.child("account").getValue().toString();
+                    String date = dataSnapshot.child("date").getValue().toString(); //3 OCT 2021
+                    String title = dataSnapshot.child("title").getValue().toString();
+                    String note = dataSnapshot.child("note").getValue().toString();
+                    if (account.equals("Bank")) {
+                        banktotal += amount;
+                    } else if (account.equals("Cash")) {
+                        cashtotal += amount;
+                    } else {
+                        bkashtotal += amount;
                     }
-                    else if(account.equals("Cash"))
-                    {
-                        cashtotal+=amount;
-                    }
-                    else
-                    {
-                        bkashtotal+=amount;
-                    }
-                     //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
-                    dataobj=new Data(amount,account,date,note,title);
-                    if(String.valueOf(currentMonth).startsWith(date.substring(0,2)))
-                    {
-                        monthtotal+=amount;
-                       // Toast.makeText(Income.this,String.valueOf(monthtotal), Toast.LENGTH_SHORT).show();
+                    //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
+                    dataobj = new Data(amount, account, date, note, title);
+                    if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
+                        monthtotal += amount;
+                        // Toast.makeText(Income.this,String.valueOf(monthtotal), Toast.LENGTH_SHORT).show();
                         data.add(dataobj);
                     }
-                    total = cashtotal+banktotal+bkashtotal;
+                    total = cashtotal + banktotal + bkashtotal;
                     dRefBalance.child("incomeTotal").setValue(total);
                     dRefBalance.child("incomeCash").setValue(cashtotal);
                     dRefBalance.child("incomeBank").setValue(banktotal);
                     dRefBalance.child("incomeMobile").setValue(bkashtotal);
                 }
                 adapter.notifyDataSetChanged();
-                totalincome.setText(String.valueOf(monthtotal));
+                totalincome.setText(String.valueOf(monthtotal+ " ৳"));
             }
 
             @Override

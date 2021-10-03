@@ -175,41 +175,13 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                     //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
 
                     //jodi recussing thake add korbe
-                    DataExpense dataobj ;
-                    CategoryData categorydata;
-                    int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
-                    String from=dataSnapshot.child("from").getValue().toString();
-                    String date=dataSnapshot.child("date").getValue().toString();
-                    String category=dataSnapshot.child("category").getValue().toString();
-                    String title=dataSnapshot.child("title").getValue().toString();
-                    String note=dataSnapshot.child("note").getValue().toString();
-                    if(category.equals("Food"))
-                    {
-                        food+=amount;
-                    }
-                    else if(category.equals("Clothing"))
-                    {
-                        clothing+=amount;
-                    }
-                    else if(category.equals("Living"))
-                    {
-                        living+=amount;
-                    }
-                    else if(category.equals("Education"))
-                    {
-                        education+=amount;
-                    }
-                    else if(category.equals("Treatment"))
-                    {
-                        treatment+=amount;
-                    }
-                    else if(category.equals("Investment"))
-                    {
-                        investment+=amount;
-                    }
-                    else {
-                        other += amount;
-                    }
+                    DataExpense dataobj;
+                    int amount = Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+                    String from = dataSnapshot.child("from").getValue().toString();
+                    String date = dataSnapshot.child("date").getValue().toString();
+                    String category = dataSnapshot.child("category").getValue().toString();
+                    String title = dataSnapshot.child("title").getValue().toString();
+                    String note = dataSnapshot.child("note").getValue().toString();
                     if (from.equals("Bank")) {
                         banktotal += amount;
                     } else if (from.equals("Cash")) {
@@ -217,18 +189,24 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                     } else {
                         bkashtotal += amount;
                     }
-                    //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
-
-
-                    dataobj=new DataExpense(amount,category,from,date,title,note);
-                    if(String.valueOf(currentMonth).startsWith(date.substring(0,2)))
-                    {
-                        categorydata=new CategoryData(food,clothing,living,education,treatment,investment, other);
-                        //String id = mCategoryDatabase.push().getKey();
-                        mCategoryDatabase.setValue(categorydata);
-                        Toast.makeText(Expense.this,"Data ADDED", Toast.LENGTH_SHORT).show();
-                        monthtotalexpense+=amount;
-                        Toast.makeText(Expense.this,String.valueOf(totalexpense), Toast.LENGTH_SHORT).show();
+                    if (category.equals("Food")) {
+                        food += amount;
+                    } else if (category.equals("Clothing")) {
+                        clothing += amount;
+                    } else if (category.equals("Living")) {
+                        living += amount;
+                    } else if (category.equals("Education")) {
+                        education += amount;
+                    } else if (category.equals("Treatment")) {
+                        treatment += amount;
+                    } else if (category.equals("Investment")) {
+                        investment += amount;
+                    } else {
+                        other += amount;
+                    }
+                            dataobj = new DataExpense(amount, category, from, date, title, note);
+                    if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
+                        monthtotalexpense += amount;
                         data.add(dataobj);
                     }
                     total = bkashtotal + cashtotal + banktotal;

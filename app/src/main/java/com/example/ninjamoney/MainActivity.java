@@ -1,5 +1,6 @@
 package com.example.ninjamoney;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -27,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
 
@@ -37,10 +39,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button report;
     private Button donate;
     private TextView text2;
+    private TextView text4;
 
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database;
     private DatabaseReference dRef;
+    private  DatabaseReference dRefBalance;
     private FirebaseUser firebaseUser;
     String uid;
 
@@ -76,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         firebaseUser = firebaseAuth.getCurrentUser();
         uid = firebaseUser.getUid();
         dRef = database.getReference().child("Users").child(uid);
+        dRefBalance = database.getReference().child("BalanceData").child(uid);
         //Toast.makeText(MainActivity.this, uid, Toast.LENGTH_SHORT).show();
 
         Query query = dRef.orderByChild("email");
@@ -109,6 +114,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
+
+        dRefBalance.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    int income = Integer.parseInt(snapshot.child("incomeTotal").getValue().toString());
+                    int expense = Integer.parseInt(snapshot.child("expenseTotal").getValue().toString());
+                    int total = income - expense;
+                    text4.setText(Integer.toString(total)+"৳");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
     }
 
     private void setup() {
@@ -119,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         report = findViewById(R.id.report);
         donate = findViewById(R.id.donate);
         text2 = findViewById(R.id.text2);
+        text4= findViewById(R.id.text4);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
@@ -130,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         report.setOnClickListener(this);
         donate.setOnClickListener(this);
         text2.setOnClickListener(this);
+        text4.setOnClickListener(this);
     }
 
     @Override
@@ -174,6 +198,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intentBud);
                 break;
             case R.id.status:
+            case R.id.text4:
                 Intent intentStat = new Intent(this, Balance.class);
                 startActivity(intentStat);
                 break;
@@ -185,7 +210,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intentDon = new Intent(this, Donate.class);
                 startActivity(intentDon);
                 break;
-
+            case R.id.text2:
+                Intent intentProf = new Intent(this, Profile.class);
+                startActivity(intentProf);
         }
     }
 
