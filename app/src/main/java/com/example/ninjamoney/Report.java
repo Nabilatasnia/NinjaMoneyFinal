@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.ninjamoney.BalanceCalculation.Balance;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
 import com.google.android.material.navigation.NavigationView;

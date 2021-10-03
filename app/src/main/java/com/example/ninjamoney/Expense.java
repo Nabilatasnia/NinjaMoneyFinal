@@ -26,9 +26,10 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ninjamoney.BalanceCalculation.Balance;
+import com.example.ninjamoney.BalanceCalculation.BalanceDataExpense;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
-import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,29 +41,32 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Expense extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener {
     private FloatingActionButton fab_expense_btn;
     private FirebaseAuth mAuth;
     private DatabaseReference mExpenseDatabase;
+    private FirebaseUser muser;
+    private DatabaseReference dRef;
     private RecyclerView recyclerView;
     private Button datebutton;
     DatePickerDialog datePickerDialog;
     private Spinner from_spinner;
     private Spinner category_spinner;
     expenseRecyclerAdapter adapter;
+    TextView expense_txt_result;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
-    int monthtotalexpense,totalexpense;
+    int monthtotalexpense, totalexpense;
     private TextView totalexpense_text;
-    int food,clothing,living,education,treatment,investment,other;
+    int food, clothing, living, education, treatment, investment, other;
+    int monthtotal, banktotal, cashtotal, total, bkashtotal;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,31 +74,35 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         setup();
         Load();
         drawer();
+        String uid = muser.getUid();
+        dRef = FirebaseDatabase.getInstance().getReference().child("BalanceData").child(uid);
     }
 
     private void setup() {
         fab_expense_btn = findViewById(R.id.add);
         fab_expense_btn.setOnClickListener(this);
         mAuth = FirebaseAuth.getInstance();
-        FirebaseUser muser = mAuth.getCurrentUser();
+        muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
-        totalexpense_text=findViewById(R.id.expense_txt_result);
+        totalexpense_text = findViewById(R.id.expense_txt_result);
         drawerLayout = findViewById(R.id.drawer_layout);
+        expense_txt_result = findViewById(R.id.expense_txt_result);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
     }
+
     private String getTodaysDate() {
-        Calendar cal=Calendar.getInstance();
-        int year=cal.get(Calendar.YEAR);
-        int month=cal.get(Calendar.MONTH);
-        month=month+1;
-        int day=cal.get(Calendar.DAY_OF_MONTH);
-        return makeDateString(day,month,year);
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        month = month + 1;
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        return makeDateString(day, month, year);
     }
 
     private String makeDateString(int day, int month, int year) {
-        return getMonthFormat(month)+" "+day+" "+year; //OCT 1 2021
+        return getMonthFormat(month) + " " + day + " " + year; //OCT 1 2021
     }
 
     private String getMonthFormat(int month) {
@@ -126,14 +134,14 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         }
         return "JAN";
     }
-    private void Load()
-    {
-        recyclerView=findViewById(R.id.recycler_id_expense);
 
-        ArrayList<DataExpense> data=new ArrayList<>();
-        adapter= new expenseRecyclerAdapter();
-        FirebaseDatabase db=FirebaseDatabase.getInstance();
-        mAuth=FirebaseAuth.getInstance();
+    private void Load() {
+        recyclerView = findViewById(R.id.recycler_id_expense);
+
+        ArrayList<DataExpense> data = new ArrayList<>();
+        adapter = new expenseRecyclerAdapter();
+        FirebaseDatabase db = FirebaseDatabase.getInstance();
+        mAuth = FirebaseAuth.getInstance();
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         DatabaseReference dref = db.getReference().child("ExpenseData").child(uid);
@@ -143,60 +151,65 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 data.clear();
-                monthtotalexpense=0;food=0;clothing=0;living=0;education=0;treatment=0;investment=0;other=0;
-                for(DataSnapshot dataSnapshot : snapshot.getChildren())
-                {
+                monthtotalexpense = 0;
+                food = 0;
+                clothing = 0;
+                living = 0;
+                education = 0;
+                treatment = 0;
+                investment = 0;
+                other = 0;
+                monthtotal = 0;
+                banktotal = 0;
+                cashtotal = 0;
+                bkashtotal = 0;
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     LocalDate currentdate = LocalDate.now();
                     Month currentMonth = currentdate.getMonth(); //OCTOBER
-                    //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
 
                     //jodi recussing thake add korbe
-                    DataExpense dataobj ;
-                    int amount=Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
-                    String from=dataSnapshot.child("from").getValue().toString();
-                    String date=dataSnapshot.child("date").getValue().toString();
-                    String category=dataSnapshot.child("category").getValue().toString();
-                    String title=dataSnapshot.child("title").getValue().toString();
-                    String note=dataSnapshot.child("note").getValue().toString();
-                    if(category=="Food")
-                    {
-                        food+=amount;
+                    DataExpense dataobj;
+                    int amount = Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+                    String from = dataSnapshot.child("from").getValue().toString();
+                    String date = dataSnapshot.child("date").getValue().toString();
+                    String category = dataSnapshot.child("category").getValue().toString();
+                    String title = dataSnapshot.child("title").getValue().toString();
+                    String note = dataSnapshot.child("note").getValue().toString();
+                    if (from.equals("Bank")) {
+                        banktotal += amount;
+                    } else if (from.equals("Cash")) {
+                        cashtotal += amount;
+                    } else {
+                        bkashtotal += amount;
                     }
-                    else if(category=="Clothing")
-                    {
-                        clothing+=amount;
+                    if (category.equals("Food")) {
+                        food += amount;
+                    } else if (category.equals("Clothing")) {
+                        clothing += amount;
+                    } else if (category.equals("Living")) {
+                        living += amount;
+                    } else if (category.equals("Education")) {
+                        education += amount;
+                    } else if (category.equals("Treatment")) {
+                        treatment += amount;
+                    } else if (category.equals("Investment")) {
+                        investment += amount;
+                    } else {
+                        other += amount;
                     }
-                    else if(category=="Living")
-                    {
-                        living+=amount;
-                    }
-                    else if(category=="Education")
-                    {
-                        education+=amount;
-                    }
-                    else if(category=="Treatment")
-                    {
-                        treatment+=amount;
-                    }
-                    else if(category=="Investment")
-                    {
-                        investment+=amount;
-                    }
-                    else
-                    {
-                        other+=amount;
-                    }
-                    //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
-                    dataobj=new DataExpense(amount,category,from,date,title,note);
-                    if(String.valueOf(currentMonth).startsWith(date.substring(0,2)))
-                    {
-                        monthtotalexpense+=amount;
-                        Toast.makeText(Expense.this,String.valueOf(totalexpense), Toast.LENGTH_SHORT).show();
+                            dataobj = new DataExpense(amount, category, from, date, title, note);
+                    if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
+                        monthtotalexpense += amount;
                         data.add(dataobj);
                     }
+                    total = bkashtotal + cashtotal + banktotal;
+                    dRef.child("expenseTotal").setValue(total);
+                    dRef.child("expenseCash").setValue(cashtotal);
+                    dRef.child("expenseBank").setValue(banktotal);
+                    dRef.child("expenseMobile").setValue(bkashtotal);
                 }
                 adapter.notifyDataSetChanged();
-                totalexpense_text.setText(String.valueOf(totalexpense));
+                totalexpense_text.setText(String.valueOf(monthtotalexpense+" ৳"));
             }
 
             @Override
@@ -204,11 +217,12 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
 
             }
         });
-        totalexpense=food+clothing+living+education+treatment+investment+other;
+        totalexpense = food + clothing + living + education + treatment + investment + other;
         adapter.setData(data);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
+
     @Override
     public void onClick(View v) {
         open(v);
@@ -227,16 +241,16 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         final EditText edtNote = myview.findViewById(R.id.expense_note);
         // initDatePicker();
 
-        from_spinner=myview.findViewById(R.id.from_spinner);
-        category_spinner=myview.findViewById(R.id.category_spinner);
+        from_spinner = myview.findViewById(R.id.from_spinner);
+        category_spinner = myview.findViewById(R.id.category_spinner);
         final String[] from = new String[1];
-        from[0]="Bank";
-        final String[] category=new String[1];
-        category[0]="Other";
+        from[0] = "Bank";
+        final String[] category = new String[1];
+        category[0] = "Other";
         category_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                category[0]=parent.getItemAtPosition(position).toString();
+                category[0] = parent.getItemAtPosition(position).toString();
                 Toast.makeText(parent.getContext(), category[0], Toast.LENGTH_SHORT).show();
             }
 
@@ -249,8 +263,8 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         from_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                from[0]=parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), from[0], Toast.LENGTH_SHORT).show();
+                from[0] = parent.getItemAtPosition(position).toString();
+               /* Toast.makeText(parent.getContext(), from[0], Toast.LENGTH_SHORT).show();*/
             }
 
             @Override
@@ -260,25 +274,23 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
             }
         });
         final String[] date = new String[1];
-        date[0] =getTodaysDate();
-        DatePickerDialog.OnDateSetListener datesetListener=new DatePickerDialog.OnDateSetListener()
-        {
+        date[0] = getTodaysDate();
+        DatePickerDialog.OnDateSetListener datesetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int day) {
-                month=month+1;
-                date[0] =makeDateString(day,month,year);
+                month = month + 1;
+                date[0] = makeDateString(day, month, year);
                 datebutton.setText(date[0]);
             }
         };
-        Calendar cal=Calendar.getInstance();
-        int year=cal.get(Calendar.YEAR);
-        int month=cal.get(Calendar.MONTH);
-        int day=cal.get(Calendar.DAY_OF_MONTH);
-        int style= android.app.AlertDialog.THEME_HOLO_LIGHT;
-        datePickerDialog=new DatePickerDialog(this,style,datesetListener,year,month,day);
-        datebutton=myview.findViewById(R.id.datepicker);
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH);
+        int day = cal.get(Calendar.DAY_OF_MONTH);
+        int style = android.app.AlertDialog.THEME_HOLO_LIGHT;
+        datePickerDialog = new DatePickerDialog(this, style, datesetListener, year, month, day);
+        datebutton = myview.findViewById(R.id.datepicker);
         datebutton.setText(getTodaysDate());
-
 
 
         Button btnSave = myview.findViewById(R.id.button_save);
@@ -316,11 +328,11 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
             String id = mExpenseDatabase.push().getKey();
             //String mDate = DateFormat.getDateInstance().format(new Date());
 
-            DataExpense data=new DataExpense(amountint,category[0],from[0],date[0] , title,note);
+            DataExpense data = new DataExpense(amountint, category[0], from[0], date[0], title, note);
 
             mExpenseDatabase.child(id).setValue(data);
 
-            Toast.makeText(Expense.this,"Data ADDED", Toast.LENGTH_SHORT).show();
+            Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
         btnCancel.setOnClickListener(v12 -> dialog.dismiss());

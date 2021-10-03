@@ -5,7 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Balance">
+    tools:context=".BalanceCalculation.Balance">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".Balance">
+        tools:context=".BalanceCalculation.Balance">
 
         <include
             android:id="@+id/toolbar"
@@ -206,7 +206,6 @@
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:layout_centerVertical="true"
-                        android:background="#BCFFFFFF"
                         android:paddingLeft="10dp"
                         android:src="@drawable/bank_balance"
                         app:tint="@color/grey" />

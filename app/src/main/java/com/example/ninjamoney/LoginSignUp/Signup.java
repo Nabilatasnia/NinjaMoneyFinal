@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.ninjamoney.BalanceCalculation.BalanceData;
 import com.example.ninjamoney.MainActivity;
 import com.example.ninjamoney.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -33,8 +34,10 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase database;
     DatabaseReference dRef;
+    DatabaseReference dRefBalance;
     FirebaseUser mUser;
     User user;
+    BalanceData balanceData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,6 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
         setup();
         firebaseAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-//        dRef = FirebaseDatabase.getInstance().getReference().child("Users");
     }
 
     private void setup() {
@@ -147,7 +149,9 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             String username = username_til.getEditText().getText().toString().trim();
                             String id = dRef.push().getKey();
                             user = new User(username, email);
+
                             dRef.child(id).setValue(user);
+
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         } else {

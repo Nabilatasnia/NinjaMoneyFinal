@@ -27,7 +27,7 @@
         <activity android:name=".Donate" />
         <activity android:name=".Report" />
         <activity android:name=".Budget" />
-        <activity android:name=".Balance" />
+        <activity android:name=".BalanceCalculation.Balance" />
         <activity android:name=".Expense" />
         <activity android:name=".Income" />
         <activity android:name=".MainActivity" />

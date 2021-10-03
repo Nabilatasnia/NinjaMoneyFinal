@@ -25,6 +25,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ninjamoney.BalanceCalculation.Balance;
+import com.example.ninjamoney.BalanceCalculation.BalanceData;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -38,17 +40,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Income extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private FloatingActionButton fab_income_btn;
 private FirebaseAuth mAuth;
 private DatabaseReference mIncomeDatabase;
+private DatabaseReference dRefBalance;
 private DatePickerDialog datePickerDialog;
 private Button datebutton;
 private RecyclerView recyclerView;
@@ -82,6 +83,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
 
+        dRefBalance = FirebaseDatabase.getInstance().getReference().child("BalanceData").child(uid);
     }
 
     private String getTodaysDate() {
@@ -158,11 +160,11 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
                     String date=dataSnapshot.child("date").getValue().toString(); //3 OCT 2021
                     String title=dataSnapshot.child("title").getValue().toString();
                     String note=dataSnapshot.child("note").getValue().toString();
-                    if(account=="Bank")
+                    if(account.equals("Bank"))
                     {
                         banktotal+=amount;
                     }
-                    else if(account=="Cash")
+                    else if(account.equals("Cash"))
                     {
                         cashtotal+=amount;
                     }
@@ -175,12 +177,17 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
                     if(String.valueOf(currentMonth).startsWith(date.substring(0,2)))
                     {
                         monthtotal+=amount;
-                        Toast.makeText(Income.this,String.valueOf(monthtotal), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(Income.this,String.valueOf(monthtotal), Toast.LENGTH_SHORT).show();
                         data.add(dataobj);
                     }
+                    total = cashtotal+banktotal+bkashtotal;
+                    dRefBalance.child("incomeTotal").setValue(total);
+                    dRefBalance.child("incomeCash").setValue(cashtotal);
+                    dRefBalance.child("incomeBank").setValue(banktotal);
+                    dRefBalance.child("incomeMobile").setValue(bkashtotal);
                 }
                 adapter.notifyDataSetChanged();
-                totalincome.setText(String.valueOf(monthtotal));
+                totalincome.setText(String.valueOf(monthtotal+ " ৳"));
             }
 
             @Override
@@ -188,9 +195,6 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
 
             }
         });
-
-        total=banktotal+bkashtotal+cashtotal;
-
         adapter.setData(data);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

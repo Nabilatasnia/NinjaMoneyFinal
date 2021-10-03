@@ -1,5 +1,6 @@
-package com.example.ninjamoney;
+package com.example.ninjamoney.BalanceCalculation;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,9 +11,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.ninjamoney.Budget;
+import com.example.ninjamoney.Donate;
+import com.example.ninjamoney.Expense;
+import com.example.ninjamoney.Income;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
+import com.example.ninjamoney.MainActivity;
+import com.example.ninjamoney.R;
+import com.example.ninjamoney.Report;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -22,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class Balance extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -39,8 +49,13 @@ public class Balance extends AppCompatActivity implements NavigationView.OnNavig
     private FirebaseAuth firebaseAuth;
     private FirebaseDatabase database;
     private DatabaseReference dRef;
+    private DatabaseReference dRefBalance;
     private FirebaseUser firebaseUser;
     String uid;
+
+    int incomeCash, incomeBank, incomeMobile, incomeTotal;
+    int expenseCash, expenseBank, expenseMobile, expenseTotal;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +73,6 @@ public class Balance extends AppCompatActivity implements NavigationView.OnNavig
         firebaseUser = firebaseAuth.getCurrentUser();
         uid = firebaseUser.getUid();
         dRef = database.getReference().child("Users").child(uid);
-
         Query query = dRef.orderByChild("email");
 
         query.addChildEventListener(new ChildEventListener() {
@@ -95,6 +109,34 @@ public class Balance extends AppCompatActivity implements NavigationView.OnNavig
     }
 
     private void update() {
+        dRefBalance = database.getReference().child("BalanceData").child(uid);
+
+        dRefBalance.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                incomeCash= Integer.parseInt(snapshot.child("incomeCash").getValue().toString().trim());
+                incomeBank = Integer.parseInt(snapshot.child("incomeBank").getValue().toString().trim());
+                incomeMobile = Integer.parseInt(snapshot.child("incomeMobile").getValue().toString().trim());
+                incomeTotal = Integer.parseInt(snapshot.child("incomeTotal").getValue().toString().trim());
+                expenseCash = Integer.parseInt(snapshot.child("expenseCash").getValue().toString().trim());
+                expenseBank = Integer.parseInt(snapshot.child("expenseBank").getValue().toString().trim());
+                expenseMobile = Integer.parseInt(snapshot.child("expenseMobile").getValue().toString().trim());
+                expenseTotal = Integer.parseInt(snapshot.child("expenseTotal").getValue().toString().trim());
+
+                int total = incomeTotal - expenseTotal;
+                int cash = incomeCash - expenseCash;
+                int bank = incomeBank - expenseBank;
+                int mobile = incomeMobile - expenseMobile;
+                balance_tv.setText(total+" ৳");
+                cash_balance_tv.setText(cash+" ৳");
+                bank_balance_tv.setText(bank+" ৳");
+                mobile_balance_tv.setText(mobile+" ৳");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+            }
+        });
 
     }
 

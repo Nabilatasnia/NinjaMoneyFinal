@@ -1,7 +1,5 @@
 package com.example.ninjamoney.LoginSignUp;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -16,7 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.ninjamoney.Balance;
+import com.example.ninjamoney.BalanceCalculation.Balance;
 import com.example.ninjamoney.Budget;
 import com.example.ninjamoney.Donate;
 import com.example.ninjamoney.Expense;
@@ -36,7 +34,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class Profile extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
@@ -235,10 +232,10 @@ public class Profile extends AppCompatActivity implements NavigationView.OnNavig
                     @Override
                     public void onChildAdded(DataSnapshot snapshot, String previousChildName) {
                         if (snapshot.exists()) {
-                            String jinish = snapshot.getKey().toString();
+                            String key = snapshot.getKey().toString();
                             String email = snapshot.child("email").getValue().toString().trim();
                             User data = new User(username, email);
-                            dRef.child(jinish).setValue(data);
+                            dRef.child(key).setValue(data);
                             Toast.makeText(Profile.this, "Profile Updated", Toast.LENGTH_SHORT).show();
                             username_tv.setText(username);
                         }

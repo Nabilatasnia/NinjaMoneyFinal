@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ninjamoney.BalanceCalculation.Balance;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
 import com.google.android.material.navigation.NavigationView;
