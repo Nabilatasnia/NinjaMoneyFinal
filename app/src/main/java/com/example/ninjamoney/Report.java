@@ -98,18 +98,18 @@ public class Report extends AppCompatActivity implements NavigationView.OnNaviga
                     String octincs = snapshot.child("octinc").getValue().toString();
                     String novincs = snapshot.child("novinc").getValue().toString();
                     String decincs = snapshot.child("decinc").getValue().toString();
-                    janinc.setText(janincs);
-                    febinc.setText(febincs);
-                    marinc.setText(marincs);
-                    aprinc.setText(aprincs);
-                    mayinc.setText(mayincs);
-                    juninc.setText(junincs);
-                    julinc.setText(julincs);
-                    auginc.setText(augincs);
-                    sepinc.setText(sepincs);
-                    octinc.setText(octincs);
-                    novinc.setText(novincs);
-                    decinc.setText(decincs);
+                    janinc.setText(janincs+"৳");
+                    febinc.setText(febincs+"৳");
+                    marinc.setText(marincs+"৳");
+                    aprinc.setText(aprincs+"৳");
+                    mayinc.setText(mayincs+"৳");
+                    juninc.setText(junincs+"৳");
+                    julinc.setText(julincs+"৳");
+                    auginc.setText(augincs+"৳");
+                    sepinc.setText(sepincs+"৳");
+                    octinc.setText(octincs+"৳");
+                    novinc.setText(novincs+"৳");
+                    decinc.setText(decincs+"৳");
                 }
             }
 
@@ -135,18 +135,18 @@ public class Report extends AppCompatActivity implements NavigationView.OnNaviga
                     String octexps = snapshot.child("octexp").getValue().toString();
                     String novexps = snapshot.child("novexp").getValue().toString();
                     String decexps = snapshot.child("decexp").getValue().toString();
-                    janexp.setText(janexps);
-                    febexp.setText(febexps);
-                    marexp.setText(marexps);
-                    aprexp.setText(aprexps);
-                    mayexp.setText(mayexps);
-                    junexp.setText(junexps);
-                    julexp.setText(julexps);
-                    augexp.setText(augexps);
-                    sepexp.setText(sepexps);
-                    octexp.setText(octexps);
-                    novexp.setText(novexps);
-                    decexp.setText(decexps);
+                    janexp.setText(janexps+"৳");
+                    febexp.setText(febexps+"৳");
+                    marexp.setText(marexps+"৳");
+                    aprexp.setText(aprexps+"৳");
+                    mayexp.setText(mayexps+"৳");
+                    junexp.setText(junexps+"৳");
+                    julexp.setText(julexps+"৳");
+                    augexp.setText(augexps+"৳");
+                    sepexp.setText(sepexps+"৳");
+                    octexp.setText(octexps+"৳");
+                    novexp.setText(novexps+"৳");
+                    decexp.setText(decexps+"৳");
                 }
             }
 

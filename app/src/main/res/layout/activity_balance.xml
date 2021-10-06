@@ -84,8 +84,7 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
-                android:elevation="15dp"
-                app:cardBackgroundColor="@color/teal_200"
+                android:elevation="25dp"
                 app:cardCornerRadius="15dp">
 
                 <RelativeLayout
@@ -100,11 +99,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:paddingTop="20dp"
-                        android:textColor="@color/black"
                         android:paddingBottom="-30dp"
                         android:text="Balance"
-                        android:textSize="25sp"
-                         />
+                        android:textColor="@color/black"
+                        android:textSize="25sp" />
 
                     <TextView
                         android:id="@+id/balance_tv"
@@ -138,6 +136,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:elevation="15dp"
+                app:cardBackgroundColor="@color/teal_200"
                 app:cardCornerRadius="10dp">
 
                 <RelativeLayout
@@ -197,6 +196,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:elevation="15dp"
+                app:cardBackgroundColor="@color/teal_200"
                 app:cardCornerRadius="10dp">
 
                 <RelativeLayout
@@ -256,6 +256,7 @@
                 android:layout_marginRight="20dp"
                 android:layout_weight="1"
                 android:elevation="15dp"
+                app:cardBackgroundColor="@color/teal_200"
                 app:cardCornerRadius="10dp">
 
                 <RelativeLayout
@@ -263,7 +264,7 @@
                     android:layout_height="match_parent"
                     android:padding="5dp">
 
-                     <ImageView
+                    <ImageView
                         android:id="@+id/mobile_iv"
                         android:layout_width="50dp"
                         android:layout_height="50dp"

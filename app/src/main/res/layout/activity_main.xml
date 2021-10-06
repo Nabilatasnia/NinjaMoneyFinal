@@ -99,7 +99,7 @@
                 android:layout_marginTop="50sp"
                 android:fontFamily="sans-serif"
                 android:paddingLeft="40dp"
-                android:text="300৳"
+                android:text="0৳"
                 android:textColor="@color/black"
                 android:textSize="55dp" />
 

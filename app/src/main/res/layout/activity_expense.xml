@@ -42,6 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:elevation="10dp"
+                app:cardBackgroundColor="@color/teal_200"
                 app:cardElevation="5dp">
 
                 <LinearLayout
@@ -80,8 +81,8 @@
                             android:id="@+id/expense_txt_result"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="000000.00"
                             android:layout_marginLeft="30sp"
+                            android:text="000000.00"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="#D53838"
                             android:textStyle="bold" />
