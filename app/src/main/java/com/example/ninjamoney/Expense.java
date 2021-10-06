@@ -53,6 +53,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
     private FloatingActionButton fab_expense_btn;
     private FirebaseAuth mAuth;
     private DatabaseReference mExpenseDatabase;
+    private DatabaseReference dexpensereport;
     private FirebaseUser muser;
     private DatabaseReference dRef;
     private DatabaseReference mCategoryDatabase;
@@ -70,7 +71,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
     private TextView totalexpense_text;
     int food, clothing, living, education, treatment, investment, other;
     int monthtotal, banktotal, cashtotal, total, bkashtotal;
-
+    int janexp,febexp,marexp,aprexp,mayexp,junexp,julexp,augexp,sepexp,octexp,novexp,decexp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,6 +90,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         mExpenseDatabase = FirebaseDatabase.getInstance().getReference().child("ExpenseData").child(uid);
+        dexpensereport = FirebaseDatabase.getInstance().getReference().child("ExpenseReport").child(uid);
         totalexpense_text = findViewById(R.id.expense_txt_result);
         drawerLayout = findViewById(R.id.drawer_layout);
         expense_txt_result = findViewById(R.id.expense_txt_result);
@@ -170,53 +172,112 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                 cashtotal = 0;
                 bkashtotal = 0;
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    LocalDate currentdate = LocalDate.now();
-                    Month currentMonth = currentdate.getMonth(); //OCTOBER
-                    //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
+                    if (snapshot.exists()) {
+                        LocalDate currentdate = LocalDate.now();
+                        Month currentMonth = currentdate.getMonth(); //OCTOBER
+                        //  Toast.makeText(Income.this,String.valueOf(currentMonth), Toast.LENGTH_SHORT).show();
 
-                    //jodi recussing thake add korbe
-                    DataExpense dataobj;
-                    int amount = Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
-                    String from = dataSnapshot.child("from").getValue().toString();
-                    String date = dataSnapshot.child("date").getValue().toString();
-                    String category = dataSnapshot.child("category").getValue().toString();
-                    String title = dataSnapshot.child("title").getValue().toString();
-                    String note = dataSnapshot.child("note").getValue().toString();
-                    if (from.equals("Bank")) {
-                        banktotal += amount;
-                    } else if (from.equals("Cash")) {
-                        cashtotal += amount;
-                    } else {
-                        bkashtotal += amount;
+                        //jodi recussing thake add korbe
+                        expenseReportData expenseReportData;
+                        DataExpense dataobj;
+                        CategoryData categorydata;
+                        int amount = Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
+                        String from = dataSnapshot.child("from").getValue().toString();
+                        String date = dataSnapshot.child("date").getValue().toString();
+                        String category = dataSnapshot.child("category").getValue().toString();
+                        String title = dataSnapshot.child("title").getValue().toString();
+                        String note = dataSnapshot.child("note").getValue().toString();
+                        String month=date.substring(0,3);
+                        if(month.equals("JAN"))
+                        {
+                            janexp+=amount;
+                        }
+                        else if(month.equals("FEB"))
+                        {
+                            febexp+=amount;
+                        }
+                        else if(month.equals("MAR"))
+                        {
+                            marexp+=amount;
+                        }
+                        else if(month.equals("APR"))
+                        {
+                            aprexp+=amount;
+                        }
+                        else if(month.equals("MAY"))
+                        {
+                            mayexp+=amount;
+                        }
+                        else if(month.equals("JUN"))
+                        {
+                            junexp+=amount;
+                        }
+                        else if(month.equals("JUL"))
+                        {
+                            julexp+=amount;
+                        }
+                        else if(month.equals("AUG"))
+                        {
+                            augexp+=amount;
+                        }
+                        else if(month.equals("SEP"))
+                        {
+                            sepexp+=amount;
+                        }
+                        else if(month.equals("OCT"))
+                        {
+                            octexp+=amount;
+                        }
+                        else if(month.equals("NOV"))
+                        {
+                            novexp+=amount;
+                        }
+                        else if(month.equals("DEC"))
+                        {
+                            decexp+=amount;
+                        }
+                        if (from.equals("Bank")) {
+                            banktotal += amount;
+                        } else if (from.equals("Cash")) {
+                            cashtotal += amount;
+                        } else {
+                            bkashtotal += amount;
+                        }
+                        if (category.equals("Food")) {
+                            food += amount;
+                        } else if (category.equals("Clothing")) {
+                            clothing += amount;
+                        } else if (category.equals("Living")) {
+                            living += amount;
+                        } else if (category.equals("Education")) {
+                            education += amount;
+                        } else if (category.equals("Treatment")) {
+                            treatment += amount;
+                        } else if (category.equals("Investment")) {
+                            investment += amount;
+                        } else {
+                            other += amount;
+                        }
+                        expenseReportData=new expenseReportData(janexp,febexp,marexp,aprexp,mayexp,junexp,julexp,augexp,sepexp,octexp,novexp,decexp);
+                        dexpensereport.setValue(expenseReportData);
+                        dataobj = new DataExpense(amount, category, from, date, title, note);
+                        if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
+                            categorydata = new CategoryData(food, clothing, living, education, treatment, investment, other);
+                            //String id = mCategoryDatabase.push().getKey();
+                            mCategoryDatabase.setValue(categorydata);
+                            Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
+                            monthtotalexpense += amount;
+                            data.add(dataobj);
+                        }
+                        total = bkashtotal + cashtotal + banktotal;
+                        dRef.child("expenseTotal").setValue(total);
+                        dRef.child("expenseCash").setValue(cashtotal);
+                        dRef.child("expenseBank").setValue(banktotal);
+                        dRef.child("expenseMobile").setValue(bkashtotal);
                     }
-                    if (category.equals("Food")) {
-                        food += amount;
-                    } else if (category.equals("Clothing")) {
-                        clothing += amount;
-                    } else if (category.equals("Living")) {
-                        living += amount;
-                    } else if (category.equals("Education")) {
-                        education += amount;
-                    } else if (category.equals("Treatment")) {
-                        treatment += amount;
-                    } else if (category.equals("Investment")) {
-                        investment += amount;
-                    } else {
-                        other += amount;
-                    }
-                            dataobj = new DataExpense(amount, category, from, date, title, note);
-                    if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
-                        monthtotalexpense += amount;
-                        data.add(dataobj);
-                    }
-                    total = bkashtotal + cashtotal + banktotal;
-                    dRef.child("expenseTotal").setValue(total);
-                    dRef.child("expenseCash").setValue(cashtotal);
-                    dRef.child("expenseBank").setValue(banktotal);
-                    dRef.child("expenseMobile").setValue(bkashtotal);
+                    adapter.notifyDataSetChanged();
+                    totalexpense_text.setText(String.valueOf(monthtotalexpense + " ৳"));
                 }
-                adapter.notifyDataSetChanged();
-                totalexpense_text.setText(String.valueOf(monthtotalexpense+" ৳"));
             }
 
             @Override

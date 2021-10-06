@@ -50,17 +50,18 @@ import java.util.Date;
 
 public class Income extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener{
     private FloatingActionButton fab_income_btn;
-private FirebaseAuth mAuth;
-private DatabaseReference mIncomeDatabase;
-private DatabaseReference dRefBalance;
-private DatePickerDialog datePickerDialog;
-private Button datebutton;
-private RecyclerView recyclerView;
-private Spinner spinner;
-TextView totalincome;
-recyclerAdapter adapter;
-int cashtotal,banktotal,bkashtotal,total,monthtotal;
-
+    private FirebaseAuth mAuth;
+    private DatabaseReference mIncomeDatabase;
+    private DatabaseReference dRefBalance;
+    private DatabaseReference dincomereport;
+    private DatePickerDialog datePickerDialog;
+    private Button datebutton;
+    private RecyclerView recyclerView;
+    private Spinner spinner;
+    TextView totalincome;
+    recyclerAdapter adapter;
+    int cashtotal,banktotal,bkashtotal,total,monthtotal;
+    int janinc,febinc,marinc,aprinc,mayinc,juninc,julinc,auginc,sepinc,octinc,novinc,decinc;
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
@@ -81,6 +82,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         mIncomeDatabase = FirebaseDatabase.getInstance().getReference().child("IncomeData").child(uid);
+        dincomereport = FirebaseDatabase.getInstance().getReference().child("IncomeReport").child(uid);
         totalincome = findViewById(R.id.income_txt_result);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
@@ -143,6 +145,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
         FirebaseUser muser = mAuth.getCurrentUser();
         String uid = muser.getUid();
         DatabaseReference dref = db.getReference().child("IncomeData").child(uid);
+
         Query checkIncome = dref.orderByChild("date");
         checkIncome.addValueEventListener(new ValueEventListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
@@ -150,6 +153,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
             public void onDataChange(DataSnapshot snapshot) {
                 data.clear();
                 monthtotal=0;banktotal=0;cashtotal=0;bkashtotal=0;
+                janinc=0;febinc=0;marinc=0;aprinc=0;mayinc=0;juninc=0;julinc=0;auginc=0;sepinc=0;octinc=0;novinc=0;decinc=0;
                 for(DataSnapshot dataSnapshot : snapshot.getChildren())
                 {
                     LocalDate currentdate = LocalDate.now();
@@ -158,11 +162,14 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
 
                     //jodi recussing thake add korbe
                     Data dataobj;
+                    incomeReportData incomereport;
                     int amount = Integer.parseInt(dataSnapshot.child("amount").getValue().toString());
                     String account = dataSnapshot.child("account").getValue().toString();
                     String date = dataSnapshot.child("date").getValue().toString(); //3 OCT 2021
                     String title = dataSnapshot.child("title").getValue().toString();
                     String note = dataSnapshot.child("note").getValue().toString();
+                    String month=date.substring(0,3);
+
                     if (account.equals("Bank")) {
                         banktotal += amount;
                     } else if (account.equals("Cash")) {
@@ -170,8 +177,60 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
                     } else {
                         bkashtotal += amount;
                     }
+                    if(month.equals("JAN"))
+                    {
+                        janinc+=amount;
+                    }
+                    else if(month.equals("FEB"))
+                    {
+                        febinc+=amount;
+                    }
+                    else if(month.equals("MAR"))
+                    {
+                        marinc+=amount;
+                    }
+                    else if(month.equals("APR"))
+                    {
+                        aprinc+=amount;
+                    }
+                    else if(month.equals("MAY"))
+                    {
+                        mayinc+=amount;
+                    }
+                    else if(month.equals("JUN"))
+                    {
+                        juninc+=amount;
+                    }
+                    else if(month.equals("JUL"))
+                    {
+                        julinc+=amount;
+                    }
+                    else if(month.equals("AUG"))
+                    {
+                        auginc+=amount;
+                    }
+                    else if(month.equals("SEP"))
+                    {
+                        sepinc+=amount;
+                    }
+                    else if(month.equals("OCT"))
+                    {
+                        octinc+=amount;
+                    }
+                    else if(month.equals("NOV"))
+                    {
+                        novinc+=amount;
+                    }
+                    else if(month.equals("DEC"))
+                    {
+                        decinc+=amount;
+                    }
+
+                    incomereport=new incomeReportData(janinc,febinc,marinc,aprinc,mayinc,juninc,julinc,auginc,sepinc,octinc,novinc,decinc);
+                    dincomereport.setValue(incomereport);
                     //   Toast.makeText(Income.this,"True", Toast.LENGTH_SHORT).show();
                     dataobj = new Data(amount, account, date, note, title);
+                    //current month
                     if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
                         monthtotal += amount;
                         // Toast.makeText(Income.this,String.valueOf(monthtotal), Toast.LENGTH_SHORT).show();
@@ -293,7 +352,7 @@ int cashtotal,banktotal,bkashtotal,total,monthtotal;
 
             mIncomeDatabase.child(id).setValue(data);
 
-            Toast.makeText(Income.this,"Data ADDED", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(Income.this,"Data ADDED", Toast.LENGTH_SHORT).show();
 
             // Load();
 
