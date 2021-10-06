@@ -5,31 +5,22 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ninjamoney.MainActivity;
 import com.example.ninjamoney.R;
-import com.example.ninjamoney.ResetPassword;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
@@ -61,16 +52,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         password_til = findViewById(R.id.password_til);
         login_btn = findViewById(R.id.login_btn);
         signup_btn = findViewById(R.id.signup_btn);
-        rememberMe_cb = findViewById((R.id.rememberMe_cb));
-        forgotPass_btn = findViewById(R.id.forgotPass_btn);
+
 
         login_back_btn.setOnClickListener(this);
         email_til.setOnClickListener(this);
         password_til.setOnClickListener(this);
         login_btn.setOnClickListener(this);
         signup_btn.setOnClickListener(this);
-        rememberMe_cb.setOnClickListener(this);
-        forgotPass_btn.setOnClickListener(this);
+
     }
 
     private boolean checkIfValidEmail() {

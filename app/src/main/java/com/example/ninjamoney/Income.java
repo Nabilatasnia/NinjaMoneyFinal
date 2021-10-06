@@ -340,10 +340,7 @@ public class Income extends AppCompatActivity implements View.OnClickListener, N
 
             int amountint = Integer.parseInt(amount);
 
-            if (TextUtils.isEmpty(note)) {
-                edtNote.setError("Required Field..");
-                return;
-            }
+
 
 
             String id = mIncomeDatabase.push().getKey();
@@ -352,9 +349,6 @@ public class Income extends AppCompatActivity implements View.OnClickListener, N
 
             mIncomeDatabase.child(id).setValue(data);
 
-            //Toast.makeText(Income.this,"Data ADDED", Toast.LENGTH_SHORT).show();
-
-            // Load();
 
             dialog.dismiss();
         });

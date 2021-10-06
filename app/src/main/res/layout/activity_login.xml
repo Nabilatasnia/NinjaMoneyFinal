@@ -81,42 +81,16 @@
                     android:textColorHint="@color/white" />
             </com.google.android.material.textfield.TextInputLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp">
 
-                <CheckBox
-                    android:id="@+id/rememberMe_cb"
-                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:buttonTint="@color/white"
-                    android:text="@string/remember_me"
-                    android:textColor="@color/white" />
-
-                <Button
-                    android:id="@+id/forgotPass_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:background="#00000000"
-                    android:text="@string/forget_password"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white" />
-
-            </RelativeLayout>
 
             <Button
                 android:id="@+id/login_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="30dp"
                 android:background="@color/teal_200"
                 android:text="@string/login"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <Button
                 android:id="@+id/signup_btn"

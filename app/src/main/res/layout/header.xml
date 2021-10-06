@@ -4,25 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="180dp"
     android:orientation="vertical"
-    android:background="@drawable/solidbg"
+    android:background="@color/teal_700"
     android:padding="10dp">
 
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/logo"
-        app:tint="@color/white" />
+        android:src="@drawable/ninja_profile"
+         />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ninja Money"
         android:textSize="24sp"
+        android:layout_marginLeft="20sp"
         android:textColor="@color/white"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Earn Mooney Track Mooney"
+        android:text="Blackbelt your finance"
         android:textSize="14sp"
+        android:layout_marginLeft="20sp"
         android:textColor="@color/white"/>
 
 

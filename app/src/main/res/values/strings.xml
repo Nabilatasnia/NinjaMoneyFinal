@@ -20,7 +20,7 @@
         <item>Education</item>
         <item>Treatment</item>
         <item>Investment</item>
-        <item>Other</item>
+        <item>Donation</item>
     </string-array>
     <string-array name="account">
         <item>Bank</item>

@@ -39,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:text="Budget"
                 android:padding="15dp"
+                android:textColor="@color/black"
                 android:textStyle="bold"
                 android:textSize="20sp"
                 />
@@ -76,6 +77,16 @@
                 android:layout_marginTop="5sp"
                 android:textStyle="bold"
                 />
+            <TextView
+                android:id="@+id/food_amount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5sp"
+                android:text="00000"
+                android:textAlignment="viewEnd"
+                android:layout_marginRight="20sp"
+                />
+
             <ProgressBar
                 android:id="@+id/food_progressbar"
                 android:layout_width="match_parent"
@@ -123,6 +134,15 @@
                         android:layout_marginLeft="5sp"
                         android:layout_marginTop="5sp"
                         android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/clothing_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="00000"
+                        android:textAlignment="viewEnd"
+                        android:layout_marginRight="20sp"
                         />
                     <ProgressBar
                         android:id="@+id/clothing_progressbar"
@@ -172,6 +192,15 @@
                         android:layout_marginTop="5sp"
                         android:textStyle="bold"
                         />
+                    <TextView
+                        android:id="@+id/living_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="00000"
+                        android:textAlignment="viewEnd"
+                        android:layout_marginRight="20sp"
+                        />
                     <ProgressBar
                         android:id="@+id/living_progressbar"
                         android:layout_width="match_parent"
@@ -220,6 +249,16 @@
                         android:layout_marginTop="5sp"
                         android:textStyle="bold"
                         />
+                    <TextView
+                        android:id="@+id/education_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="00000"
+                        android:textAlignment="viewEnd"
+                        android:layout_marginRight="20sp"
+                        />
+
                     <ProgressBar
                         android:id="@+id/education_progressbar"
                         android:layout_width="match_parent"
@@ -255,28 +294,39 @@
                     android:layout_width="wrap_content"
                     android:src="@drawable/medical"
                     android:padding="5sp"/>
+
                 <RelativeLayout
-                    android:layout_height="match_parent"
-                    android:layout_width="match_parent">
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
                     <TextView
                         android:id="@+id/treatment"
-                        android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="Treatment"
-                        android:textSize="15sp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="5sp"
                         android:layout_marginTop="5sp"
-                        android:textStyle="bold"
-                        />
-                    <ProgressBar
-                        android:id="@+id/treatment_progressbar"
+                        android:text="Treatment"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/treatment_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5sp"
-                        android:layout_marginLeft="5sp"
+                        android:text="00000"
+                        android:textAlignment="viewEnd"
                         android:layout_marginRight="20sp"
+                        />
+
+                    <ProgressBar
+                        android:id="@+id/treatment_progressbar"
+                        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/treatment"
-                        style="@style/Widget.AppCompat.ProgressBar.Horizontal">
+                        android:layout_marginLeft="5sp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="20sp">
 
                     </ProgressBar>
                 </RelativeLayout>
@@ -315,6 +365,15 @@
                         android:layout_marginLeft="5sp"
                         android:layout_marginTop="5sp"
                         android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/investment_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="00000"
+                        android:textAlignment="viewEnd"
+                        android:layout_marginRight="20sp"
                         />
                     <ProgressBar
                         android:id="@+id/investment_progressbar"
@@ -358,11 +417,20 @@
                         android:id="@+id/other"
                         android:layout_height="wrap_content"
                         android:layout_width="wrap_content"
-                        android:text="Other"
+                        android:text="Donation"
                         android:textSize="15sp"
                         android:layout_marginLeft="5sp"
                         android:layout_marginTop="5sp"
                         android:textStyle="bold"
+                        />
+                    <TextView
+                        android:id="@+id/other_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:text="00000"
+                        android:textAlignment="viewEnd"
+                        android:layout_marginRight="20sp"
                         />
                     <ProgressBar
                         android:id="@+id/other_progressbar"

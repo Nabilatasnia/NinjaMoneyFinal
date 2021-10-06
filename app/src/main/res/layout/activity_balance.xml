@@ -85,7 +85,8 @@
                 android:layout_marginRight="40dp"
                 android:layout_weight="1"
                 android:elevation="15dp"
-                app:cardCornerRadius="10dp">
+                app:cardBackgroundColor="@color/teal_200"
+                app:cardCornerRadius="15dp">
 
                 <RelativeLayout
                     android:id="@+id/balance_rl"
@@ -99,10 +100,11 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:paddingTop="20dp"
+                        android:textColor="@color/black"
                         android:paddingBottom="-30dp"
                         android:text="Balance"
                         android:textSize="25sp"
-                        android:textStyle="bold" />
+                         />
 
                     <TextView
                         android:id="@+id/balance_tv"
@@ -113,6 +115,7 @@
                         android:layout_marginTop="-20dp"
                         android:paddingTop="20dp"
                         android:text="0৳"
+                        android:textColor="@color/black"
                         android:textSize="25sp" />
 
 

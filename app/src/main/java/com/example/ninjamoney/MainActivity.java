@@ -162,8 +162,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             drawerLayout.closeDrawer(GravityCompat.START);
         } else {
             if (isPressed) {
-                finish();
-                moveTaskToBack(true);
+             finishAffinity();
+              System.exit(0);
             } else {
                 Toast.makeText(this, "Press again to close app", Toast.LENGTH_SHORT).show();
                 isPressed = true;

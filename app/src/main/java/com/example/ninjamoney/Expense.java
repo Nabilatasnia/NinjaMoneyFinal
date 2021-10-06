@@ -264,8 +264,8 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                         dataobj = new DataExpense(amount, category, from, date, title, note);
                         if (String.valueOf(currentMonth).startsWith(date.substring(0, 2))) {
                             categorydata = new CategoryData(food, clothing, living, education, treatment, investment, other);
-                            //String id = mCategoryDatabase.push().getKey();
                             mCategoryDatabase.setValue(categorydata);
+                          //  Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
                             //Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
                             monthtotalexpense += amount;
                             data.add(dataobj);
@@ -280,10 +280,8 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                     totalexpense_text.setText(String.valueOf(monthtotalexpense + " ৳"));
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError error) {
-
             }
         });
         totalexpense = food + clothing + living + education + treatment + investment + other;

@@ -63,7 +63,7 @@
                             android:paddingTop="50dp"
                             android:text="Expense"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-                            android:textColor="#D53838"
+                            android:textColor="@color/black"
                             android:textStyle="bold" />
 
                     </RelativeLayout>
@@ -81,6 +81,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="000000.00"
+                            android:layout_marginLeft="30sp"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="#D53838"
                             android:textStyle="bold" />

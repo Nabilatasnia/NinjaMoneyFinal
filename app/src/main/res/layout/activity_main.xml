@@ -23,128 +23,149 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-
-        android:background="@drawable/menubg"
         tools:context=".MainActivity">
 
         <include
             android:id="@+id/toolbar"
             layout="@layout/toolbar" />
-
-        <TextView
-            android:id="@+id/text1"
-            android:layout_below="@+id/toolbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:height="50dp"
-            android:paddingLeft="20dp"
-            android:paddingTop="20dp"
-            android:text="Welcome back,"
-            android:textColor="#474545"
-            android:textSize="18dp" />
-
-        <TextView
-            android:id="@+id/text2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text1"
-            android:height="50dp"
-            android:paddingLeft="20dp"
-            android:text=""
-            android:textColor="#070707"
-            android:textSize="40dp" />
-
-        <LinearLayout
-
-            android:layout_width="375dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text2"
-            android:layout_centerInParent="true"
-
-            android:layout_marginTop="20dp"
-            android:background="@drawable/solidbg"
-            android:gravity="center"
-            android:paddingStart="100dp">
-
-        </LinearLayout>
-
-
-        <TextView
-            android:id="@+id/text3"
+        <RelativeLayout
+            android:id="@+id/topPanel"
+            android:layout_height="200sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text2"
-            android:layout_marginTop="30dp"
-            android:height="50dp"
-            android:paddingLeft="40dp"
-            android:paddingTop="30dp"
-            android:text="Your balance is"
-            android:textColor="#F4F1F1"
-            android:textSize="18dp" />
+            android:layout_below="@id/toolbar"
+            android:background="@color/teal_700"
+            >
 
-        <TextView
-            android:id="@+id/text4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/text3"
-            android:paddingLeft="40dp"
-            android:text="300৳"
-            android:textColor="#FAFAFA"
-            android:textSize="55dp" />
 
+            <TextView
+                android:id="@+id/text1"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:height="50dp"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="50dp"
+                android:paddingTop="20dp"
+                android:text="Welcome back,"
+                android:textColor="@color/white"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/text1"
+                android:height="50dp"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="50dp"
+                android:text=""
+                android:textColor="@color/white"
+                android:textSize="40dp"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/midpanel"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginTop="-70sp"
+            android:layout_below="@id/topPanel">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card"
+            android:layout_height="150sp"
+            android:layout_width="match_parent"
+            android:elevation="20sp"
+            app:cardBackgroundColor="@color/teal_200"
+            app:cardCornerRadius="10sp"
+            android:layout_marginLeft="20sp"
+            android:layout_marginRight="20sp"
+            >
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:height="50dp"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="40dp"
+                android:paddingTop="30dp"
+                android:text="Your balance is"
+                android:textColor="@color/black"
+                android:textSize="18dp" />
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50sp"
+                android:fontFamily="sans-serif"
+                android:paddingLeft="40dp"
+                android:text="300৳"
+                android:textColor="@color/black"
+                android:textSize="55dp" />
+
+        </androidx.cardview.widget.CardView>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="210dp"
             android:layout_height="500dp"
-            android:layout_below="@+id/text4"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/midpanel"
             android:orientation="vertical"
-            android:paddingLeft="50dp"
-            android:paddingTop="60dp">
+            android:paddingLeft="60dp"
+
+            android:paddingTop="30sp">
 
             <Button
                 android:id="@+id/income"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:background="@drawable/button"
                 android:drawableTop="@drawable/income"
-                android:drawableTint="@color/black"
+                android:drawableTint="@color/white"
 
-                android:paddingTop="10dp"
+                android:fontFamily="sans-serif"
+                android:paddingTop="20dp"
                 android:shadowDx="4"
                 android:shadowDy="25"
                 android:text="Income"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:backgroundTint="#64C6BE"
-                app:cornerRadius="10dp"
+
+
+                app:backgroundTint="@color/teal_700"
                 app:iconPadding="10dp" />
 
             <Button
                 android:id="@+id/budget"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/button"
                 android:drawableTop="@drawable/budget"
-                android:drawableTint="@color/black"
-                android:paddingTop="10dp"
+                android:drawableTint="@color/white"
+                android:fontFamily="sans-serif"
+                android:paddingTop="20dp"
                 android:text="Budget"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:backgroundTint="#64C6BE"
+                app:backgroundTint="@color/teal_700"
                 app:cornerRadius="10dp"
                 app:iconPadding="10dp" />
 
             <Button
                 android:id="@+id/report"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/button"
                 android:drawableTop="@drawable/report"
-                android:drawableTint="@color/black"
-                android:paddingTop="10dp"
+                android:drawableTint="@color/white"
+                android:fontFamily="sans-serif"
+                android:paddingTop="20dp"
                 android:text="Report"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:backgroundTint="#64C6BE"
+                app:backgroundTint="@color/teal_700"
                 app:cornerRadius="10dp"
                 app:iconPadding="10dp" />
 
@@ -154,56 +175,63 @@
         <LinearLayout
             android:layout_width="210dp"
             android:layout_height="500dp"
-            android:layout_below="@+id/text4"
+            android:layout_below="@+id/midpanel"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginTop="20dp"
+
             android:layout_marginRight="-2dp"
             android:layout_marginBottom="0dp"
 
             android:orientation="vertical"
-            android:paddingLeft="30dp"
-            android:paddingTop="60dp">
+            android:paddingLeft="40dp"
+            android:paddingTop="30dp">
 
             <Button
                 android:id="@+id/expense"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:background="@drawable/button"
                 android:drawableTop="@drawable/expense"
-                android:drawableTint="@color/black"
-                android:paddingTop="10dp"
+                android:drawableTint="@color/white"
+                android:fontFamily="sans-serif"
+                android:paddingTop="20dp"
                 android:text="Expense"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:backgroundTint="#64C6BE"
+                app:backgroundTint="@color/teal_700"
                 app:cornerRadius="10dp"
                 app:iconPadding="10dp" />
 
             <Button
                 android:id="@+id/status"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/button"
                 android:drawableTop="@drawable/moneystatus"
-                android:drawableTint="@color/black"
-                android:paddingTop="10dp"
+                android:drawableTint="@color/white"
+                android:fontFamily="sans-serif"
+                android:paddingTop="20dp"
                 android:text="Balance"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:backgroundTint="#64C6BE"
+                app:backgroundTint="@color/teal_700"
                 app:cornerRadius="10dp"
                 app:iconPadding="10dp" />
 
             <Button
                 android:id="@+id/donate"
-                android:layout_width="120dp"
-                android:layout_height="120dp"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
+                android:layout_marginTop="5sp"
+                android:background="@drawable/button"
                 android:drawableTop="@drawable/donate"
-                android:drawableTint="@color/black"
-                android:paddingTop="10dp"
+                android:drawableTint="@color/white"
+                android:fontFamily="sans-serif"
+                android:paddingTop="20dp"
                 android:text="Donate"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="15sp"
-                app:backgroundTint="#64C6BE"
+                app:backgroundTint="@color/teal_700"
                 app:cornerRadius="10dp"
                 app:iconPadding="10dp" />
 

@@ -1,5 +1,4 @@
 package com.example.ninjamoney;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -48,6 +47,7 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
     Toolbar toolbar;
     FloatingActionButton fab_budget_btn;
     ProgressBar foodprog,livingprog,cloprog,eduprog,treatprog,investprog,otherprog;
+    TextView fooda,clothinga,livinga,educationa,treatmenta,investmenta,donationa;
 
 
     @Override
@@ -72,18 +72,19 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
                     int investment=Integer.parseInt(snapshot.child("investment").getValue().toString());
                     int other=Integer.parseInt(snapshot.child("other").getValue().toString());
                     foodprog.setMax(food);
-
                     livingprog.setMax(living);
-
                     cloprog.setMax(clothing);
-
                     eduprog.setMax(education);
-
                     treatprog.setMax(treatment);
-
                     investprog.setMax(investment);
-
                     otherprog.setMax(other);
+                    fooda.setText(String.valueOf(food)+" ৳");
+                    clothinga.setText(String.valueOf(clothing)+" ৳");
+                    livinga.setText(String.valueOf(living)+" ৳");
+                    educationa.setText(String.valueOf(education)+" ৳");
+                    treatmenta.setText(String.valueOf(treatment)+" ৳");
+                    investmenta.setText(String.valueOf(investment)+" ৳");
+                    donationa.setText(String.valueOf(other)+" ৳");
                 }
 
             }
@@ -140,6 +141,14 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.nav_view);
         toolbar = findViewById(R.id.toolbar);
+        fooda= findViewById(R.id.food_amount);
+        livinga= findViewById(R.id.living_amount);
+        clothinga= findViewById(R.id.clothing_amount);
+        educationa= findViewById(R.id.education_amount);
+        treatmenta= findViewById(R.id.treatment_amount);
+        investmenta= findViewById(R.id.investment_amount);
+        donationa= findViewById(R.id.other_amount);
+
     }
     @Override
     public void onClick(View v) {
@@ -187,41 +196,62 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
             if (TextUtils.isEmpty(food))
                 foodint[0]=0;
             else
+            {
                 foodint[0] =Integer.parseInt(food);
+                mBudgetDatabase.child("food").setValue(foodint[0]);
+            }
 
             if (TextUtils.isEmpty(clothing))
                 clothingint[0]=0;
             else
+            {
                 clothingint[0] =Integer.parseInt(clothing);
+                mBudgetDatabase.child("clothing").setValue(clothingint[0]);
+            }
 
             if (TextUtils.isEmpty(living))
                 livingint[0]=0;
             else
+            {
                 livingint[0] =Integer.parseInt(living);
+                mBudgetDatabase.child("living").setValue(livingint[0]);
+            }
 
             if (TextUtils.isEmpty(education))
                 educationint[0]=0;
             else
+            {
                 educationint[0] =Integer.parseInt(education);
+                mBudgetDatabase.child("education").setValue(educationint[0]);
+            }
 
             if (TextUtils.isEmpty(treatment))
                 treatmentint[0]=0;
             else
+            {
                 treatmentint[0] =Integer.parseInt(treatment);
+                mBudgetDatabase.child("treatment").setValue(treatmentint[0]);
+            }
 
             if (TextUtils.isEmpty(investment))
                 investmentint[0]=0;
             else
+            {
                 investmentint[0] =Integer.parseInt(investment);
+                mBudgetDatabase.child("investment").setValue(investmentint[0]);
+            }
 
             if (TextUtils.isEmpty(other))
                 otherint[0]=0;
             else
+            {
                 otherint[0] =Integer.parseInt(other);
+                mBudgetDatabase.child("other").setValue(otherint[0]);
+            }
 
 
-            budgetData=new BudgetData(foodint[0],clothingint[0],livingint[0],educationint[0],treatmentint[0],investmentint[0],otherint[0]);
-            mBudgetDatabase.setValue(budgetData);
+            //budgetData=new BudgetData(foodint[0],clothingint[0],livingint[0],educationint[0],treatmentint[0],investmentint[0],otherint[0]);
+            //mBudgetDatabase.setValue(budgetData);
             //Toast.makeText(Budget.this,"Data ADDED", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
