@@ -282,7 +282,7 @@ public class Income extends AppCompatActivity implements View.OnClickListener, N
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 account[0]=parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), account[0], Toast.LENGTH_SHORT).show();
+               // Toast.makeText(parent.getContext(), account[0], Toast.LENGTH_SHORT).show();
             }
 
             @Override

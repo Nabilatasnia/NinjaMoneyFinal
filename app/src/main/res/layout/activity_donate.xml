@@ -31,12 +31,12 @@
             layout="@layout/toolbar" />
 
         <LinearLayout
-            android:layout_below="@id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:layout_below="@+id/toolbar"
             android:background="#FFF1F3FC"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:scrollbarAlwaysDrawVerticalTrack="true">
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
@@ -49,39 +49,371 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="10sp"
-                    android:layout_marginRight="10sp"
-                    android:layout_marginBottom="10sp">
+                    android:layout_marginRight="10sp">
 
                     <TextView
                         android:id="@+id/donatetext"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-
+                        android:layout_marginLeft="10dp"
                         android:layout_marginTop="5dp"
                         android:paddingTop="50dp"
                         android:text="Donate goal"
                         android:textColor="@color/black"
                         android:textSize="20dp"
-                        android:textStyle="bold"></TextView>
+                        android:textStyle="bold" />
 
 
                     <ProgressBar
-
+                        android:id="@+id/progressBar"
                         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/donatetext"
-                        android:layout_marginTop="5dp"></ProgressBar>
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"></ProgressBar>
 
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_id_income"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:padding="5dp">
 
-            </androidx.recyclerview.widget.RecyclerView>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/brac_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/brac_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="60dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/brac" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/brac_iv"
+                            android:text="ব্র্যাক"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/alter_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/alter_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/alteryouth" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/alter_iv"
+                            android:text="অলটার ইয়ুথ"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/kidney_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/kidney_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/kidneyfoundation" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/kidney_iv"
+                            android:text="বাংলাদেশ কিডনি  বাংলাদেশ"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/bidyanondo_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/bidyanondo_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/bidyanondo" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/bidyanondo_iv"
+                            android:text="বিদ্যানন্দ"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/thalassemia_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/thalassemia_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/btf" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/thalassemia_iv"
+                            android:text="বাংলাদেশ থ্যালাসেমিয়া ফাউন্ডেশন"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/as_sunnah_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/as_sunnah_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/as_sunnah" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/as_sunnah_iv"
+                            android:text="আস-সুন্নাহ ফাউন্ডেশন"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/friendship_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/friendship_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/friendship" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/friendship_iv"
+                            android:text="ফ্রেন্ডশিপ এনজিও"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="0dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_weight="1"
+                    android:elevation="15dp"
+                    app:cardCornerRadius="5dp"
+                    android:id="@+id/jaago_cv">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/jaago_iv"
+                            android:layout_width="50dp"
+                            android:layout_height="50dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="25dp"
+                            android:paddingLeft="10dp"
+                            android:src="@drawable/jaago" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:layout_marginTop="15dp"
+                            android:layout_toRightOf="@+id/jaago_iv"
+                            android:text="জাগো ফাউন্ডেশন"
+                            android:textSize="20sp" />
+                    </RelativeLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </RelativeLayout>
 </androidx.drawerlayout.widget.DrawerLayout>

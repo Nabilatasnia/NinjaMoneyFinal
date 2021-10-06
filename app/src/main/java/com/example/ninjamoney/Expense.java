@@ -27,7 +27,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ninjamoney.BalanceCalculation.Balance;
-import com.example.ninjamoney.BalanceCalculation.BalanceDataExpense;
 import com.example.ninjamoney.LoginSignUp.Login;
 import com.example.ninjamoney.LoginSignUp.Profile;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -67,6 +66,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
     DrawerLayout drawerLayout;
     NavigationView navigationView;
     Toolbar toolbar;
+
     int monthtotalexpense, totalexpense;
     private TextView totalexpense_text;
     int food, clothing, living, education, treatment, investment, other;
@@ -142,6 +142,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
     }
 
     private void Load() {
+
         recyclerView = findViewById(R.id.recycler_id_expense);
 
         ArrayList<DataExpense> data = new ArrayList<>();
@@ -265,7 +266,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
                             categorydata = new CategoryData(food, clothing, living, education, treatment, investment, other);
                             //String id = mCategoryDatabase.push().getKey();
                             mCategoryDatabase.setValue(categorydata);
-                            Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
                             monthtotalexpense += amount;
                             data.add(dataobj);
                         }
@@ -319,7 +320,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 category[0] = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), category[0], Toast.LENGTH_SHORT).show();
+               // Toast.makeText(parent.getContext(), category[0], Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -332,7 +333,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 from[0] = parent.getItemAtPosition(position).toString();
-               /* Toast.makeText(parent.getContext(), from[0], Toast.LENGTH_SHORT).show();*/
+                /* Toast.makeText(parent.getContext(), from[0], Toast.LENGTH_SHORT).show();*/
             }
 
             @Override
@@ -401,7 +402,7 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
 
             mExpenseDatabase.child(id).setValue(data);
 
-            Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(Expense.this, "Data ADDED", Toast.LENGTH_SHORT).show();
             dialog.dismiss();
         });
         btnCancel.setOnClickListener(v12 -> dialog.dismiss());
@@ -471,3 +472,4 @@ public class Expense extends AppCompatActivity implements View.OnClickListener, 
         return true;
     }
 }
+

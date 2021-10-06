@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.ninjamoney.BalanceCalculation.BalanceData;
+import com.example.ninjamoney.BudgetData;
+import com.example.ninjamoney.CategoryData;
 import com.example.ninjamoney.MainActivity;
 import com.example.ninjamoney.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -35,9 +37,13 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
     FirebaseDatabase database;
     DatabaseReference dRef;
     DatabaseReference dRefBalance;
+    DatabaseReference dRefCat;
+    DatabaseReference dRefBud;
     FirebaseUser mUser;
     User user;
     BalanceData balanceData;
+    CategoryData categoryData;
+    BudgetData budgetData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,13 +151,21 @@ public class Signup extends AppCompatActivity implements View.OnClickListener {
                             mUser = firebaseAuth.getCurrentUser();
                             String uid = mUser.getUid();
                             dRef = FirebaseDatabase.getInstance().getReference().child("Users").child(uid);
+                            dRefBalance = database.getReference().child("BalanceData").child(uid);
+                            dRefCat = database.getReference().child("CategoryData").child(uid);
+                            dRefBud = database.getReference().child("Budget").child(uid);
                             Toast.makeText(Signup.this, "Signup Complete", Toast.LENGTH_SHORT).show();
                             String username = username_til.getEditText().getText().toString().trim();
                             String id = dRef.push().getKey();
                             user = new User(username, email);
+                            balanceData = new BalanceData(0,0,0,0,0,0,0,0);
+                            categoryData = new CategoryData(0,0, 0, 0,0,0,0);
+                            budgetData = new BudgetData(0, 0, 0, 0, 0, 0,0);
 
                             dRef.child(id).setValue(user);
-
+                            dRefBalance.setValue(balanceData);
+                            dRefCat.setValue(categoryData);
+                            dRefBud.setValue(budgetData);
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             startActivity(intent);
                         } else {

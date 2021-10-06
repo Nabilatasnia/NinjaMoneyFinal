@@ -18,6 +18,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ninjamoney.BalanceCalculation.Balance;
@@ -48,6 +49,7 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
     FloatingActionButton fab_budget_btn;
     ProgressBar foodprog,livingprog,cloprog,eduprog,treatprog,investprog,otherprog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,39 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
     }
     private void categoryupdate()
     {
+        mBudgetDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                if (snapshot.exists()) {
+                    int food=Integer.parseInt(snapshot.child("food").getValue().toString());
+                    int clothing=Integer.parseInt(snapshot.child("clothing").getValue().toString());
+                    int living=Integer.parseInt(snapshot.child("living").getValue().toString());
+                    int education=Integer.parseInt(snapshot.child("education").getValue().toString());
+                    int treatment=Integer.parseInt(snapshot.child("treatment").getValue().toString());
+                    int investment=Integer.parseInt(snapshot.child("investment").getValue().toString());
+                    int other=Integer.parseInt(snapshot.child("other").getValue().toString());
+                    foodprog.setMax(food);
+
+                    livingprog.setMax(living);
+
+                    cloprog.setMax(clothing);
+
+                    eduprog.setMax(education);
+
+                    treatprog.setMax(treatment);
+
+                    investprog.setMax(investment);
+
+                    otherprog.setMax(other);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+
+            }
+        });
         mCategoryDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot snapshot) {
@@ -70,6 +105,7 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
                     int treatmentspent=Integer.parseInt(snapshot.child("treatment").getValue().toString().trim());
                     int investmentspent=Integer.parseInt(snapshot.child("investment").getValue().toString().trim());
                     int otherspent=Integer.parseInt(snapshot.child("other").getValue().toString().trim());
+                 //   Toast.makeText(Budget.this, "CAtegory Change", Toast.LENGTH_SHORT).show();
                     foodprog.setProgress(foodspent);
                     livingprog.setProgress(livingspent);
                     cloprog.setProgress(clothingspent);
@@ -115,6 +151,7 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
         LayoutInflater inflater = LayoutInflater.from(Budget.this);
         View myview = inflater.inflate(R.layout.budget_input, null);
         mydialog.setView(myview);
+
 
         final AlertDialog dialog = mydialog.create();
         dialog.setCancelable(false);
@@ -189,39 +226,7 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
             dialog.dismiss();
         });
         btnCancel.setOnClickListener(v12 -> dialog.dismiss());
-        mBudgetDatabase.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                   int food=Integer.parseInt(snapshot.child("food").getValue().toString());
-                   int clothing=Integer.parseInt(snapshot.child("clothing").getValue().toString());
-                   int living=Integer.parseInt(snapshot.child("living").getValue().toString());
-                   int education=Integer.parseInt(snapshot.child("education").getValue().toString());
-                   int treatment=Integer.parseInt(snapshot.child("treatment").getValue().toString());
-                   int investment=Integer.parseInt(snapshot.child("investment").getValue().toString());
-                   int other=Integer.parseInt(snapshot.child("other").getValue().toString());
-                    foodprog.setMax(food);
 
-                    livingprog.setMax(living);
-
-                    cloprog.setMax(clothing);
-
-                    eduprog.setMax(education);
-
-                    treatprog.setMax(treatment);
-
-                    investprog.setMax(investment);
-
-                    otherprog.setMax(other);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-
-            }
-        });
 
 
         dialog.show();
@@ -291,3 +296,4 @@ public class Budget extends AppCompatActivity implements View.OnClickListener,Na
 
 
 }
+

@@ -5,52 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    >
-    <LinearLayout
-        android:id="@+id/totalincome"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:gravity="center">
+    android:orientation="vertical">
 
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="Total income: "
-                android:layout_alignParentLeft="true"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                />
-
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            >
-
-            <TextView
-                android:layout_height="wrap_content"
-                android:layout_width="wrap_content"
-                android:text="5000৳"
-                android:textColor="@color/teal_700"
-                android:layout_alignParentLeft="true"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                />
-
-        </RelativeLayout>
-    </LinearLayout>
     <LinearLayout
         android:id="@+id/food"
-        android:layout_below="@+id/totalincome"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
